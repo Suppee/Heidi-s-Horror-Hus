@@ -33,14 +33,12 @@ public class PlayerController : MonoBehaviour
         Lookaround();
 
 
-        // Forward/Backwards movement during swing
-        if (moveValue.y != 0)
-            Debug.Log("test");
-            this.gameObject.GetComponent<CharacterController>().Move(gameObject.transform.forward * moveValue.y * moveSpeed);
+        // Forward/Backwards movement
+        Vector3 move = transform.right * moveValue.x + transform.forward * moveValue.y;
 
-        // Left/Right movement during swing   
-        if (moveValue.x != 0)
-            this.gameObject.GetComponent<CharacterController>().Move(gameObject.transform.right * moveValue.x * moveSpeed);
+  
+        this.gameObject.GetComponent<CharacterController>().SimpleMove(move * moveSpeed);
+      
     }
 
     private void Lookaround()
@@ -60,8 +58,10 @@ public class PlayerController : MonoBehaviour
         //Clamps the up and down rotation between -90 and 90 degrees to avoid 
         xRotCamera = Mathf.Clamp(xRotCamera, -90f, 90f);
 
-        //Rotate camera 
+        //Rotate camera up and down  
         playerCamera.transform.localRotation = Quaternion.Euler(xRotCamera, yRotCamera, 0);
+
+        // Rotate whole character when moving mouse left/right
         transform.localRotation = Quaternion.Euler(0, yRotCamera, 0);
     }
 
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+        Debug.Log(moveValue);
     }
 
     // Input value from Interact
