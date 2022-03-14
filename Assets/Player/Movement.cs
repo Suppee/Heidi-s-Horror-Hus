@@ -26,12 +26,12 @@ public class Movement : MonoBehaviour
         Vector3 horizontalVelocity = (transform.right * horizontalInput.x + transform.forward * horizontalInput.y) * speed;
         controller.Move(horizontalVelocity * Time.deltaTime);
 
-        if (jump) {
-            if (isGrounded) {
-                verticalVelocity.y = Mathf.Sqrt(-2f * jumpHeight * gravity);
-            }
-            jump = false;
-        }
+        //if (jump) {
+           // if (isGrounded) {
+              //  verticalVelocity.y = Mathf.Sqrt(-2f * jumpHeight * gravity);
+           // }
+           // jump = false;
+        //}
 
         verticalVelocity.y += gravity * Time.deltaTime;
         controller.Move(verticalVelocity * Time.deltaTime);

@@ -5,15 +5,23 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] CharacterController controller;
+
     //Camera control variables
     public float cameraSensitivity = 25f;
-    private float xRotCamera;
+    [SerializeField] float sensitivityX = 8f;
+    [SerializeField] float sensitivityY = 0.5f;
+
     Vector2 lookValue;
     public Transform playerCamera;
 
     //Movement variables
     public float moveSpeed;
     Vector2 moveValue;
+    public bool isGrounded;
+    [SerializeField] LayerMask groundMask;
+    [SerializeField] float gravity = -30f;
+    Vector3 verticalVelocity = Vector3.zero;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,29 +33,34 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Character movement
+        Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
+        controller.Move(move * Time.deltaTime);
+
+        isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundMask);
+        if (isGrounded)
+        {
+            verticalVelocity.y = 0;
+        }
+
+        verticalVelocity.y += gravity * Time.deltaTime;
+        controller.Move(verticalVelocity * Time.deltaTime);
+        MouseLook();
     }
 
     private void FixedUpdate()
     {
-        Lookaround();
-
-
-        // Forward/Backwards movement
-        Vector3 move = transform.right * moveValue.x + transform.forward * moveValue.y;
-
-  
-        this.gameObject.GetComponent<CharacterController>().SimpleMove(move * moveSpeed);
-      
+        
     }
 
-    private void Lookaround()
+    private void MouseLook()
     {
+        float xRotCamera = 0;
         float yRotCamera;
-        float mouseX = lookValue.x * cameraSensitivity * Time.fixedDeltaTime;
-        float mouseY = lookValue.y * cameraSensitivity * Time.fixedDeltaTime;
+        float mouseX = lookValue.x * sensitivityX;
+        float mouseY = lookValue.y * sensitivityY;
 
-        //Find current look rotation
+        // Create local variable and set it to cameras rotation
         Vector3 rot = playerCamera.transform.localRotation.eulerAngles;
 
         // Adds the mouse x value as rotation on the camera (left/right rotation around the cameras Y axis)
@@ -58,11 +71,18 @@ public class PlayerController : MonoBehaviour
         //Clamps the up and down rotation between -90 and 90 degrees to avoid 
         xRotCamera = Mathf.Clamp(xRotCamera, -90f, 90f);
 
+        transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
+
+        Vector3 targetRotation = transform.eulerAngles;
+        targetRotation.x = xRotCamera;
+        playerCamera.eulerAngles = targetRotation;
+
         //Rotate camera up and down  
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotCamera, yRotCamera, 0);
+       //playerCamera.transform.localRotation = Quaternion.Euler(xRotCamera, yRotCamera, 0);
 
         // Rotate whole character when moving mouse left/right
-        transform.localRotation = Quaternion.Euler(0, yRotCamera, 0);
+        //transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
+        //transform.localRotation = Quaternion.Euler(0, yRotCamera, 0);
     }
 
     // Input value from mouse 
@@ -75,12 +95,16 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
-        Debug.Log(moveValue);
+        //Debug.Log(moveValue);
     }
 
     // Input value from Interact
     public void Interact(InputAction.CallbackContext context)
     {
-        print("yeet");
+        RaycastHit hit;
+            if(Physics.Raycast(transform.position, playerCamera.forward, out hit, 10))
+            {
+
+            }
     }
 }
