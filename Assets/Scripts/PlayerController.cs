@@ -55,34 +55,16 @@ public class PlayerController : MonoBehaviour
 
     private void MouseLook()
     {
-        float xRotCamera = 0;
-        float yRotCamera;
+        //local variables
         float mouseX = lookValue.x * sensitivityX;
         float mouseY = lookValue.y * sensitivityY;
 
-        // Create local variable and set it to cameras rotation
-        Vector3 rot = playerCamera.transform.localRotation.eulerAngles;
-
-        // Adds the mouse x value as rotation on the camera (left/right rotation around the cameras Y axis)
-        yRotCamera = rot.y + mouseX;
-
-        //Rotate, and also make sure we dont over- or under-rotate.
-        xRotCamera -= mouseY;
-        //Clamps the up and down rotation between -90 and 90 degrees to avoid 
-        xRotCamera = Mathf.Clamp(xRotCamera, -90f, 90f);
-
+        // Rotate whole character when moving mouse left/right
         transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
 
-        Vector3 targetRotation = transform.eulerAngles;
-        targetRotation.x = xRotCamera;
-        playerCamera.eulerAngles = targetRotation;
-
         //Rotate camera up and down  
-       //playerCamera.transform.localRotation = Quaternion.Euler(xRotCamera, yRotCamera, 0);
+        playerCamera.Rotate(Vector3.right, -mouseY * Time.deltaTime);
 
-        // Rotate whole character when moving mouse left/right
-        //transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
-        //transform.localRotation = Quaternion.Euler(0, yRotCamera, 0);
     }
 
     // Input value from mouse 
@@ -95,16 +77,24 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
-        //Debug.Log(moveValue);
     }
 
     // Input value from Interact
     public void Interact(InputAction.CallbackContext context)
     {
-        RaycastHit hit;
-            if(Physics.Raycast(transform.position, playerCamera.forward, out hit, 10))
+        if(context.performed)
+        {
+            RaycastHit hit;
+            Debug.DrawRay(playerCamera.position, playerCamera.forward * 3, Color.red, 10);
+            if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, 3))
             {
-
+                if (hit.transform.CompareTag("Interactable"))
+                {
+                    print("Interacting with " + hit.collider.gameObject);
+                    hit.collider.gameObject.GetComponent<Interactable>().Interact();
+                }
             }
+        }
+     
     }
 }
