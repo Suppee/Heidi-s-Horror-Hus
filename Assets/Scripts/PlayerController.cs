@@ -23,11 +23,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravity = -30f;
     Vector3 verticalVelocity = Vector3.zero;
 
+    //Flashlight variables
+    [SerializeField] GameObject FlashlightLight;
+    bool FlashlightActive = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        FlashlightLight.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -46,11 +51,6 @@ public class PlayerController : MonoBehaviour
         verticalVelocity.y += gravity * Time.deltaTime;
         controller.Move(verticalVelocity * Time.deltaTime);
         MouseLook();
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     private void MouseLook()
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     // Input value from mouse 
     public void Look(InputAction.CallbackContext context)
     {
+        
         lookValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
     }
 
@@ -100,6 +101,28 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-     
+    }
+
+    // Input value from flashlight
+    public void Flashlight(InputAction.CallbackContext context)
+    {         
+
+        if (context.performed && FlashlightActive)
+        {
+            FlashlightActive = false;
+        }
+        else if (context.performed)
+        {
+            FlashlightActive = true;
+        }
+
+        if (FlashlightActive)
+        {
+            FlashlightLight.gameObject.SetActive(true);
+        }
+        else
+        {
+            FlashlightLight.gameObject.SetActive(false);
+        }
     }
 }
