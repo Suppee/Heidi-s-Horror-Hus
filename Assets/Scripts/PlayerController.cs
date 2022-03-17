@@ -48,28 +48,33 @@ public class PlayerController : MonoBehaviour
         MouseLook();
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
     private void MouseLook()
     {
         //local variables
         float mouseX = lookValue.x * sensitivityX;
         float mouseY = lookValue.y * sensitivityY;
+        float xRotation = 0;
+        float xClamp = 100;
 
         // Rotate whole character when moving mouse left/right
         transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
 
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -xClamp, xClamp);
+
+        Vector3 targetRotation = transform.eulerAngles;
+        targetRotation.x = xRotation;
+        playerCamera.eulerAngles = targetRotation;
+
         //Rotate camera up and down  
-        playerCamera.Rotate(Vector3.right, -mouseY * Time.deltaTime);
+        //playerCamera.Rotate(Vector3.right, xRotation * Time.deltaTime);
 
     }
 
     // Input value from mouse 
     public void Look(InputAction.CallbackContext context)
     {
+        
         lookValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
     }
 
