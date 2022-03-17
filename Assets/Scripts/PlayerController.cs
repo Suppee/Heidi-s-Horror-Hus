@@ -109,28 +109,24 @@ public class PlayerController : MonoBehaviour
 
     // Input value from flashlight
     public void Flashlight(InputAction.CallbackContext context)
-    {
-        if(context.performed)
+    {         
+
+        if (context.performed && FlashlightActive)
         {
-            bool fPressed = Keyboard.current[Key.F].isPressed;
+            FlashlightActive = false;
+        }
+        else if (context.performed)
+        {
+            FlashlightActive = true;
+        }
 
-            if (fPressed && FlashlightActive)
-            {
-                FlashlightActive = false;
-            }
-            else if (fPressed)
-            {
-                FlashlightActive = true;
-            }
-
-            if (FlashlightActive)
-            {
-                FlashlightLight.gameObject.SetActive(true);
-            }
-            else
-            {
-                FlashlightLight.gameObject.SetActive(false);
-            }
+        if (FlashlightActive)
+        {
+            FlashlightLight.gameObject.SetActive(true);
+        }
+        else
+        {
+            FlashlightLight.gameObject.SetActive(false);
         }
     }
 }
