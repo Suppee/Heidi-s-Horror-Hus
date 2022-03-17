@@ -23,11 +23,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravity = -30f;
     Vector3 verticalVelocity = Vector3.zero;
 
+    //Flashlight variables
+    [SerializeField] GameObject FlashlightLight;
+    bool FlashlightActive = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        FlashlightLight.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -100,6 +105,32 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-     
+    }
+
+    // Input value from flashlight
+    public void Flashlight(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            bool fPressed = Keyboard.current[Key.F].isPressed;
+
+            if (fPressed && FlashlightActive)
+            {
+                FlashlightActive = false;
+            }
+            else if (fPressed)
+            {
+                FlashlightActive = true;
+            }
+
+            if (FlashlightActive)
+            {
+                FlashlightLight.gameObject.SetActive(true);
+            }
+            else
+            {
+                FlashlightLight.gameObject.SetActive(false);
+            }
+        }
     }
 }
