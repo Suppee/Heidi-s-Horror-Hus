@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CharacterController controller;
 
     //Camera control variables
-    public float cameraSensitivity = 25f;
-    [SerializeField] float sensitivityX = 8f;
-    [SerializeField] float sensitivityY = 0.5f;
+    public float xRotation;
+    [SerializeField] [Range(2.5f, 25f)] float sensitivityX = 8f;
+    [SerializeField] [Range(2.5f, 25f)] float sensitivityY = 0.5f;
 
     Vector2 lookValue;
     public Transform playerCamera;
@@ -56,15 +56,20 @@ public class PlayerController : MonoBehaviour
     private void MouseLook()
     {
         //local variables
-        float mouseX = lookValue.x * sensitivityX;
-        float mouseY = lookValue.y * sensitivityY;
+        float mouseX = lookValue.x * sensitivityX * Time.fixedDeltaTime;
+        float mouseY = lookValue.y * sensitivityY * Time.fixedDeltaTime;
 
-        // Rotate whole character when moving mouse left/right
-        transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
+        //Find current look rotation
+        Vector3 rot = transform.localRotation.eulerAngles;
+        float desiredX = rot.y + mouseX;
 
-        //Rotate camera up and down  
-        playerCamera.Rotate(Vector3.right, -mouseY * Time.deltaTime);
+        //Rotate, and also make sure we dont over- or under-rotate.
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
+        //Perform the rotations
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        transform.localRotation = Quaternion.Euler(0, desiredX, 0);
     }
 
     // Input value from mouse 
