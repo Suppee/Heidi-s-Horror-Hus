@@ -27,12 +27,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject FlashlightLight;
     bool FlashlightActive = false;
 
+    //Crouch variables
+    [SerializeField] GameObject Body;
+    private Vector3 crouchScale = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 playerScale;
+    bool CrouchActive = false;
+
+    //Sprint variables
+    bool SprintActive = false;
+
     // Start is called before the first frame update
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         FlashlightLight.gameObject.SetActive(false);
+        playerScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -40,7 +50,21 @@ public class PlayerController : MonoBehaviour
     {
         // Character movement
         Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
-        controller.Move(move * Time.deltaTime);
+        Vector3 moveCrouch = move / 2;
+        Vector3 moveSprint = move * 2;
+        if (CrouchActive)
+        {
+            controller.Move(moveCrouch * Time.deltaTime);
+        }
+        else if (SprintActive)
+        {
+            controller.Move(moveSprint * Time.deltaTime);
+        }
+        else
+        {
+            controller.Move(move * Time.deltaTime);
+        }
+
 
         isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundMask);
         if (isGrounded)
@@ -123,6 +147,43 @@ public class PlayerController : MonoBehaviour
         else
         {
             FlashlightLight.gameObject.SetActive(false);
+        }
+    }
+
+    // Input value from crouch
+    public void Crouch(InputAction.CallbackContext context)
+    {
+
+        if (context.performed && CrouchActive)
+        {
+            CrouchActive = false;
+        }
+        else if (context.performed)
+        {
+            CrouchActive = true;
+        }
+
+        if (CrouchActive)
+        {
+            transform.localScale = crouchScale;
+        }
+        else
+        {
+            transform.localScale = playerScale;
+        }
+    }
+
+    // Input value from sprint
+    public void Sprint(InputAction.CallbackContext context)
+    {
+
+        if (context.performed)
+        {
+            SprintActive = true;
+        }
+        else
+        {
+            SprintActive = false;
         }
     }
 }
