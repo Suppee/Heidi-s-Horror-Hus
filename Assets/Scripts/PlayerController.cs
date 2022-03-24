@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject FlashlightLight;
     bool FlashlightActive = false;
 
+    //Keyring variables
+    public List<Key> keyring;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -97,7 +100,10 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform.CompareTag("Interactable"))
                 {
                     print("Interacting with " + hit.collider.gameObject);
+                    hit.collider.gameObject.GetComponent<Interactable>().playerController = this;
                     hit.collider.gameObject.GetComponent<Interactable>().Interact();
+                    
+
                 }
             }
         }

@@ -11,7 +11,7 @@ public class Door : Interactable
     [SerializeField] private AudioClip opensound;
     [SerializeField] private AudioClip closesound;
     [SerializeField] private AudioSource audioSource;
-
+    [SerializeField] private string accesskey;
 
     public void Awake()
     {
@@ -40,8 +40,21 @@ public class Door : Interactable
         }
         else if (locked && GetComponent<AudioSource>().isPlaying == false)
         {
-            audioSource.clip = locksound;
-            audioSource.Play();
+            for (int i = 0; i < playerController.keyring.Count; i++)
+            {
+                if (playerController.keyring[i].keycode == accesskey)
+                {
+                    locked = false;
+                    // ADD UNLOCKING SOUND
+                }
+                    
+            }
+            if(locked)
+            {
+                audioSource.clip = locksound;
+                audioSource.Play();
+            }
+      
         }
             
         
