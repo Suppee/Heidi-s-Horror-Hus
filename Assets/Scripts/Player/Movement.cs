@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundMask);
+        isGrounded = Physics.CheckSphere(transform.position, 1f, groundMask);
         if (isGrounded) { 
             verticalVelocity.y = 0;
         }
