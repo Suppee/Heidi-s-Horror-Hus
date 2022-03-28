@@ -831,6 +831,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Flashlight",
+            "id": "b36fbd7e-d91b-4260-9bf1-1499b91d300c",
+            "actions": [
+                {
+                    "name": "Lighting",
+                    "type": "Button",
+                    "id": "052f2c39-769e-4ef8-9523-d74ff0764061",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7f4a374e-c0d1-471a-bb2f-70f823d9d0a6",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lighting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

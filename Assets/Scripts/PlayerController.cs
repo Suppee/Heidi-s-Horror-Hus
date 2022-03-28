@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
 
+    [SerializeField] private AudioSource audioSource;
+
     //Camera control variables
     public float xRotation;
     [SerializeField] [Range(2.5f, 25f)] float sensitivityX = 8f;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] float gravity = -30f;
     Vector3 verticalVelocity = Vector3.zero;
+    [SerializeField] private AudioClip FootstepsConcrete;
 
     //Flashlight variables
     [SerializeField] GameObject FlashlightLight;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         FlashlightLight.gameObject.SetActive(false);
         playerScale = transform.localScale;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -55,17 +59,28 @@ public class PlayerController : MonoBehaviour
         Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
         Vector3 moveCrouch = move / 2;
         Vector3 moveSprint = move * 2;
-        if (CrouchActive)
+        if (CrouchActive && moveValue.x != 0 || CrouchActive && moveValue.y != 0)
         {
             controller.Move(moveCrouch * Time.deltaTime);
+            audioSource.Stop();
         }
-        else if (SprintActive)
+        else if (SprintActive && moveValue.x != 0 || SprintActive && moveValue.y != 0)
         {
             controller.Move(moveSprint * Time.deltaTime);
+            audioSource.Stop();
+        }
+        else if (moveValue.x != 0 || moveValue.y != 0)
+        {
+            controller.Move(move * Time.deltaTime);
+            if (GetComponent<AudioSource>().isPlaying == false)
+            {
+                audioSource.clip = FootstepsConcrete;
+                audioSource.Play();
+            }
         }
         else
         {
-            controller.Move(move * Time.deltaTime);
+            audioSource.Stop();
         }
 
 
