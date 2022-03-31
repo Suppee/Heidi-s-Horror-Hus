@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gravity = -30f;
     Vector3 verticalVelocity = Vector3.zero;
     [SerializeField] private AudioClip FootstepsConcrete;
+    [SerializeField] private AudioClip Running;
+    [SerializeField] private AudioClip Sneaking;
 
     //Flashlight variables
     [SerializeField] GameObject FlashlightLight;
@@ -62,19 +64,39 @@ public class PlayerController : MonoBehaviour
         if (CrouchActive && moveValue.x != 0 || CrouchActive && moveValue.y != 0)
         {
             controller.Move(moveCrouch * Time.deltaTime);
-            audioSource.Stop();
+            if (audioSource.clip != Sneaking)
+            {
+                audioSource.Stop();
+                audioSource.clip = Sneaking;
+            }
+            if (GetComponent<AudioSource>().isPlaying == false)
+            {
+                audioSource.Play();
+            }
         }
         else if (SprintActive && moveValue.x != 0 || SprintActive && moveValue.y != 0)
         {
             controller.Move(moveSprint * Time.deltaTime);
-            audioSource.Stop();
+            if (audioSource.clip != Running)
+            {
+                audioSource.Stop();
+                audioSource.clip = Running;
+            }
+            if (GetComponent<AudioSource>().isPlaying == false)
+            {
+                audioSource.Play();
+            }
         }
         else if (moveValue.x != 0 || moveValue.y != 0)
         {
             controller.Move(move * Time.deltaTime);
+            if (audioSource.clip != FootstepsConcrete)
+            {
+                audioSource.Stop();
+                audioSource.clip = FootstepsConcrete;
+            }
             if (GetComponent<AudioSource>().isPlaying == false)
             {
-                audioSource.clip = FootstepsConcrete;
                 audioSource.Play();
             }
         }
