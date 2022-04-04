@@ -18533,14 +18533,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3681580331125407105, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: m_Range
-      value: 51.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681580331125407105, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: m_Intensity
-      value: 14.49
-      objectReference: {fileID: 0}
     - target: {fileID: 3681580331261666322, guid: 5535571052b59f443887ce5286742c9a, type: 3}
       propertyPath: m_Name
       value: Player with Flashlight 1
@@ -18588,26 +18580,6 @@ PrefabInstance:
     - target: {fileID: 3681580331261666324, guid: 5535571052b59f443887ce5286742c9a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681580331972371246, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: moveSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681580331972371246, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: xRotation
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681580331972371246, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: isGrounded
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681580331972371246, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: sensitivityX
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3681580331972371246, guid: 5535571052b59f443887ce5286742c9a, type: 3}
-      propertyPath: sensitivityY
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5535571052b59f443887ce5286742c9a, type: 3}
