@@ -10,12 +10,12 @@ public class Key : Interactable
     public override void Interact()
     {
         playerController.keyring.Add(this);
-        gameObject.SetActive(false);
         if (GetComponent<AudioSource>().isPlaying == false)
         {
             audioSource.clip = ItemCollected;
             audioSource.Play();
         }
+        gameObject.SetActive(false);
     }
 
 }
