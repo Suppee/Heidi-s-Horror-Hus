@@ -294,6 +294,17 @@
                 },
                 {
                     "name": "",
+                    "id": "0bda22c2-389d-43e4-a1ed-2e70c472fb18",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Flashlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a333ef4c-7189-45b3-8566-dba6da3e804b",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
