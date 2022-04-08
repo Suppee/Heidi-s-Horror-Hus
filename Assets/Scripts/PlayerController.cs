@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
 
+    [SerializeField] private AudioSource audioSourceFootsteps;
+
     [SerializeField] private AudioSource audioSource;
 
     //Camera control variables
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     //Flashlight variables
     [SerializeField] GameObject FlashlightLight;
+    [SerializeField] private AudioClip FlashlightClick;
     bool FlashlightActive = false;
 
     //Crouch variables
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         FlashlightLight.gameObject.SetActive(false);
         playerScale = transform.localScale;
+        audioSourceFootsteps = GetComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -64,45 +68,45 @@ public class PlayerController : MonoBehaviour
         if (CrouchActive && moveValue.x != 0 || CrouchActive && moveValue.y != 0)
         {
             controller.Move(moveCrouch * Time.deltaTime);
-            if (audioSource.clip != Sneaking)
+            if (audioSourceFootsteps.clip != Sneaking)
             {
-                audioSource.Stop();
-                audioSource.clip = Sneaking;
+                audioSourceFootsteps.Stop();
+                audioSourceFootsteps.clip = Sneaking;
             }
             if (GetComponent<AudioSource>().isPlaying == false)
             {
-                audioSource.Play();
+                audioSourceFootsteps.Play();
             }
         }
         else if (SprintActive && moveValue.x != 0 || SprintActive && moveValue.y != 0)
         {
             controller.Move(moveSprint * Time.deltaTime);
-            if (audioSource.clip != Running)
+            if (audioSourceFootsteps.clip != Running)
             {
-                audioSource.Stop();
-                audioSource.clip = Running;
+                audioSourceFootsteps.Stop();
+                audioSourceFootsteps.clip = Running;
             }
             if (GetComponent<AudioSource>().isPlaying == false)
             {
-                audioSource.Play();
+                audioSourceFootsteps.Play();
             }
         }
         else if (moveValue.x != 0 || moveValue.y != 0)
         {
             controller.Move(move * Time.deltaTime);
-            if (audioSource.clip != FootstepsConcrete)
+            if (audioSourceFootsteps.clip != FootstepsConcrete)
             {
-                audioSource.Stop();
-                audioSource.clip = FootstepsConcrete;
+                audioSourceFootsteps.Stop();
+                audioSourceFootsteps.clip = FootstepsConcrete;
             }
             if (GetComponent<AudioSource>().isPlaying == false)
             {
-                audioSource.Play();
+                audioSourceFootsteps.Play();
             }
         }
         else
         {
-            audioSource.Stop();
+            audioSourceFootsteps.Stop();
         }
 
 
@@ -172,8 +176,7 @@ public class PlayerController : MonoBehaviour
 
     // Input value from flashlight
     public void Flashlight(InputAction.CallbackContext context)
-    {         
-
+    {
         if (context.performed && FlashlightActive)
         {
             FlashlightActive = false;
@@ -186,10 +189,20 @@ public class PlayerController : MonoBehaviour
         if (FlashlightActive)
         {
             FlashlightLight.gameObject.SetActive(true);
+            if (GetComponent<AudioSource>().isPlaying == false)
+            {
+                audioSource.clip = FlashlightClick;
+                audioSource.Play();
+            }
         }
         else
         {
             FlashlightLight.gameObject.SetActive(false);
+            if (GetComponent<AudioSource>().isPlaying == false)
+            {
+                audioSource.clip = FlashlightClick;
+                audioSource.Play();
+            }
         }
     }
 

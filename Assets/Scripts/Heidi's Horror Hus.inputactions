@@ -283,17 +283,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d7d5c095-b7c9-4ce0-a090-d3769448e9fa",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Flashlight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0bda22c2-389d-43e4-a1ed-2e70c472fb18",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -838,34 +827,6 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Flashlight",
-            "id": "b36fbd7e-d91b-4260-9bf1-1499b91d300c",
-            "actions": [
-                {
-                    "name": "Lighting",
-                    "type": "Button",
-                    "id": "052f2c39-769e-4ef8-9523-d74ff0764061",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "7f4a374e-c0d1-471a-bb2f-70f823d9d0a6",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lighting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
