@@ -41,9 +41,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerScale;
     bool CrouchActive = false;
 
-    //Sprint variables
-    bool SprintActive = false;
-
     //Keyring variables
     public List<Key> keyring;
 
@@ -64,7 +61,6 @@ public class PlayerController : MonoBehaviour
         // Character movement
         Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
         Vector3 moveCrouch = move / 2;
-        Vector3 moveSprint = move * 2;
         if (CrouchActive && moveValue.x != 0 || CrouchActive && moveValue.y != 0)
         {
             controller.Move(moveCrouch * Time.deltaTime);
@@ -77,20 +73,7 @@ public class PlayerController : MonoBehaviour
             {
                 audioSourceFootsteps.Play();
             }
-        }
-        else if (SprintActive && moveValue.x != 0 || SprintActive && moveValue.y != 0)
-        {
-            controller.Move(moveSprint * Time.deltaTime);
-            if (audioSourceFootsteps.clip != Running)
-            {
-                audioSourceFootsteps.Stop();
-                audioSourceFootsteps.clip = Running;
-            }
-            if (GetComponent<AudioSource>().isPlaying == false)
-            {
-                audioSourceFootsteps.Play();
-            }
-        }
+        }        
         else if (moveValue.x != 0 || moveValue.y != 0)
         {
             controller.Move(move * Time.deltaTime);
@@ -226,20 +209,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             transform.localScale = playerScale;
-        }
-    }
-
-    // Input value from sprint
-    public void Sprint(InputAction.CallbackContext context)
-    {
-
-        if (context.performed)
-        {
-            SprintActive = true;
-        }
-        else
-        {
-            SprintActive = false;
         }
     }
 }
