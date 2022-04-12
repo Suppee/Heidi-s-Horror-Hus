@@ -42,6 +42,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerScale;
     bool CrouchActive = false;
 
+    //Sprint variables
+    bool SprintActive = false;
+
     //Keyring variables
     public List<Key> keyring;
 
@@ -61,7 +64,8 @@ public class PlayerController : MonoBehaviour
         if (moveValue.x != 0 || moveValue.y != 0)
         {
             isMoving = true;
-        } else
+        }
+        else
         {
             isMoving = false;
         }
@@ -69,20 +73,18 @@ public class PlayerController : MonoBehaviour
         // Character movement
         Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
         Vector3 moveCrouch = move / 2;
-        if (CrouchActive && moveValue.x != 0 || CrouchActive && moveValue.y != 0)
+        Vector3 moveSprint = move * 2;
+
+        //Moves player based on stance
+        if (CrouchActive && isMoving)
         {
-            controller.Move(moveCrouch * Time.deltaTime);
-            if (audioSourceFootsteps.clip != Sneaking)
-            {
-                audioSourceFootsteps.Stop();
-                audioSourceFootsteps.clip = Sneaking;
-            }
-            if (GetComponent<AudioSource>().isPlaying == false)
-            {
-                audioSourceFootsteps.Play();
-            }
-        }        
-        else if (moveValue.x != 0 || moveValue.y != 0)
+            ControlMovement(moveCrouch, soundTimer[0], sneaking, pitchMods[0].x, pitchMods[0].y, volMod[0]);
+        }
+        else if (SprintActive && isMoving)
+        {
+            ControlMovement(moveSprint, soundTimer[1], running, pitchMods[1].x, pitchMods[1].y, volMod[1]);
+        }
+        else if (isMoving)
         {
             ControlMovement(move, soundTimer[2], footstepsConcrete, pitchMods[2].x, pitchMods[2].y, volMod[2]);
         }
@@ -114,7 +116,7 @@ public class PlayerController : MonoBehaviour
             {
                 audioSource.clip = audioClip;
             }
-            
+
             //Sets pitch and volume
             audioSource.pitch = Random.Range(pitchOg * pitchLo, pitchOg * pitchHi);
             audioSource.volume = volume;
@@ -156,7 +158,7 @@ public class PlayerController : MonoBehaviour
     // Input value from Interact
     public void Interact(InputAction.CallbackContext context)
     {
-        if(context.performed)
+        if (context.performed)
         {
             RaycastHit hit;
             Debug.DrawRay(playerCamera.position, playerCamera.forward * 3, Color.red, 10);
@@ -167,7 +169,7 @@ public class PlayerController : MonoBehaviour
                     print("Interacting with " + hit.collider.gameObject);
                     hit.collider.gameObject.GetComponent<Interactable>().playerController = this;
                     hit.collider.gameObject.GetComponent<Interactable>().Interact();
-                    
+
 
                 }
             }
@@ -203,6 +205,20 @@ public class PlayerController : MonoBehaviour
         else
         {
             transform.localScale = playerScale;
+        }
+    }
+
+    // Input value from sprint
+    public void Sprint(InputAction.CallbackContext context)
+    {
+
+        if (context.performed)
+        {
+            SprintActive = true;
+        }
+        else
+        {
+            SprintActive = false;
         }
     }
 }
