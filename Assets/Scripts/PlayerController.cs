@@ -6,9 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
-
-    [SerializeField] private AudioSource audioSourceFootsteps;
-
+    [SerializeField] Flashlight flashlight;
     [SerializeField] private AudioSource audioSource;
 
     //Camera control variables
@@ -19,21 +17,24 @@ public class PlayerController : MonoBehaviour
     Vector2 lookValue;
     public Transform playerCamera;
 
+    //Sound variables
+    private int pitchOg = 1;
+    [SerializeField] private Vector2[] pitchMods;
+    [SerializeField] private float[] volMod;
+    [SerializeField] private float[] soundTimer;
+    private float lastFootstep;
+
     //Movement variables
+    private bool isMoving;
+    private bool isGrounded;
+    private float gravity = -9.85f;
     public float moveSpeed;
     Vector2 moveValue;
-    public bool isGrounded;
     [SerializeField] LayerMask groundMask;
-    [SerializeField] float gravity = -30f;
     Vector3 verticalVelocity = Vector3.zero;
-    [SerializeField] private AudioClip FootstepsConcrete;
-    [SerializeField] private AudioClip Running;
-    [SerializeField] private AudioClip Sneaking;
-
-    //Flashlight variables
-    [SerializeField] GameObject FlashlightLight;
-    [SerializeField] private AudioClip FlashlightClick;
-    bool FlashlightActive = false;
+    [SerializeField] private AudioClip footstepsConcrete;
+    [SerializeField] private AudioClip running;
+    [SerializeField] private AudioClip sneaking;
 
     //Crouch variables
     [SerializeField] GameObject Body;
@@ -49,15 +50,22 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        FlashlightLight.gameObject.SetActive(false);
         playerScale = transform.localScale;
-        audioSourceFootsteps = GetComponent<AudioSource>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Checks if player is moving
+        if (moveValue.x != 0 || moveValue.y != 0)
+        {
+            isMoving = true;
+        } else
+        {
+            isMoving = false;
+        }
+
         // Character movement
         Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
         Vector3 moveCrouch = move / 2;
@@ -76,24 +84,12 @@ public class PlayerController : MonoBehaviour
         }        
         else if (moveValue.x != 0 || moveValue.y != 0)
         {
-            controller.Move(move * Time.deltaTime);
-            if (audioSourceFootsteps.clip != FootstepsConcrete)
-            {
-                audioSourceFootsteps.Stop();
-                audioSourceFootsteps.clip = FootstepsConcrete;
-            }
-            if (GetComponent<AudioSource>().isPlaying == false)
-            {
-                audioSourceFootsteps.Play();
-            }
-        }
-        else
-        {
-            audioSourceFootsteps.Stop();
+            ControlMovement(move, soundTimer[2], footstepsConcrete, pitchMods[2].x, pitchMods[2].y, volMod[2]);
         }
 
+        //Checks if player is touching the ground, makes gravity
+        isGrounded = Physics.CheckSphere(transform.position, 0.5f, groundMask);
 
-        isGrounded = Physics.CheckSphere(transform.position, 0.1f, groundMask);
         if (isGrounded)
         {
             verticalVelocity.y = 0;
@@ -101,11 +97,39 @@ public class PlayerController : MonoBehaviour
 
         verticalVelocity.y += gravity * Time.deltaTime;
         controller.Move(verticalVelocity * Time.deltaTime);
-        MouseLook();
     }
 
-    private void MouseLook()
+    private void ControlMovement(Vector3 moveMod, float interval, AudioClip audioClip, float pitchLo, float pitchHi, float volume)
     {
+        //moves player
+        controller.Move(moveMod * Time.deltaTime);
+
+        //plays footstep sounds i last footstep is longer ago than allowed limit
+        if (Time.fixedTime - interval >= lastFootstep)
+        {
+            audioSource.Stop();
+
+            //replaces audio clip with correct clip
+            if (audioSource.clip != audioClip)
+            {
+                audioSource.clip = audioClip;
+            }
+            
+            //Sets pitch and volume
+            audioSource.pitch = Random.Range(pitchOg * pitchLo, pitchOg * pitchHi);
+            audioSource.volume = volume;
+
+            //plays footstep and records current time
+            audioSource.Play();
+            lastFootstep = Time.fixedTime;
+        }
+    }
+
+    // Input value from mouse 
+    public void Look(InputAction.CallbackContext context)
+    {
+        lookValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+
         //local variables
         float mouseX = lookValue.x * sensitivityX * Time.fixedDeltaTime;
         float mouseY = lookValue.y * sensitivityY * Time.fixedDeltaTime;
@@ -121,13 +145,6 @@ public class PlayerController : MonoBehaviour
         //Perform the rotations
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.localRotation = Quaternion.Euler(0, desiredX, 0);
-    }
-
-    // Input value from mouse 
-    public void Look(InputAction.CallbackContext context)
-    {
-        
-        lookValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
     }
 
     // Input values from WASD
@@ -160,32 +177,9 @@ public class PlayerController : MonoBehaviour
     // Input value from flashlight
     public void Flashlight(InputAction.CallbackContext context)
     {
-        if (context.performed && FlashlightActive)
+        if (context.performed)
         {
-            FlashlightActive = false;
-        }
-        else if (context.performed)
-        {
-            FlashlightActive = true;
-        }
-
-        if (FlashlightActive)
-        {
-            FlashlightLight.gameObject.SetActive(true);
-            if (GetComponent<AudioSource>().isPlaying == false)
-            {
-                audioSource.clip = FlashlightClick;
-                audioSource.Play();
-            }
-        }
-        else
-        {
-            FlashlightLight.gameObject.SetActive(false);
-            if (GetComponent<AudioSource>().isPlaying == false)
-            {
-                audioSource.clip = FlashlightClick;
-                audioSource.Play();
-            }
+            flashlight.TurnOnOff();
         }
     }
 
