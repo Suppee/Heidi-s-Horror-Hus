@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         moveValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+        
     }
 
     // Input value from Interact
@@ -167,8 +168,8 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform.CompareTag("Interactable"))
                 {
                     print("Interacting with " + hit.collider.gameObject);
-                    hit.collider.gameObject.GetComponent<Interactable>().playerController = this;
-                    hit.collider.gameObject.GetComponent<Interactable>().Interact();
+                    hit.collider.gameObject.GetComponentInParent<Interactable>().playerController = this;
+                    hit.collider.gameObject.GetComponentInParent<Interactable>().Interact();
 
 
                 }

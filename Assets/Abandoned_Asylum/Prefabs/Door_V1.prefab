@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: 30a37ce794ca1c94192e4d8721b12940, type: 3}
+      propertyPath: m_Name
+      value: Door_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 30a37ce794ca1c94192e4d8721b12940, type: 3}
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
@@ -106,18 +110,56 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 30a37ce794ca1c94192e4d8721b12940, type: 3}
   m_PrefabInstance: {fileID: 3697366874615915529}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &665608243
-AudioSource:
+--- !u!95 &1972534583
+Animator:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3697366874615882409}
   m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 504d6b9b4e20a8044ba2f37977f880ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &3697366874615882413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: 30a37ce794ca1c94192e4d8721b12940, type: 3}
+  m_PrefabInstance: {fileID: 3697366874615915529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1797866962
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697366874615882413}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2, y: 2.1, z: 0.2}
+  m_Center: {x: 0, y: 1.1, z: 0}
+--- !u!82 &1797866964
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697366874615882413}
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -202,41 +244,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &665608242
+--- !u!114 &1797866961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3697366874615882409}
+  m_GameObject: {fileID: 3697366874615882413}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d155c9094faa09c4e98a3c61d2c43128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locked: 0
+  playerController: {fileID: 0}
+  locked: 1
   doorAnim: {fileID: 1972534583}
   locksound: {fileID: 8300000, guid: 96f618e298159d64cb145de842feb821, type: 3}
   opensound: {fileID: 8300000, guid: 00f7a60b8334e774ab9fcaba62f4a142, type: 3}
   closesound: {fileID: 8300000, guid: 609a0a92c4458324598be1176da1ee0b, type: 3}
-  audioSource: {fileID: 665608243}
---- !u!95 &1972534583
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3697366874615882409}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 504d6b9b4e20a8044ba2f37977f880ac, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  audioSource: {fileID: 0}
+  accesskey: Lala
