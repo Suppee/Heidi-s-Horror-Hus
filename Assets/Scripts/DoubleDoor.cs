@@ -17,8 +17,7 @@ public class DoubleDoor : Interactable
     public void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        leftAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
-        rightAnim = gameObject.transform.GetChild(0).GetComponent<Animator>();
+
     }
     public override void Interact()
     {
@@ -28,15 +27,15 @@ public class DoubleDoor : Interactable
             {
                 audioSource.clip = closesound;
                 audioSource.Play();
-                leftAnim.Play("DoorClose", 0, 0.0f);
-                rightAnim.Play("DoorClose", 0, 0.0f);
+                leftAnim.Play("DoorCloseLeft", 0, 0.0f);
+                rightAnim.Play("DoorCloseRight", 0, 0.0f);
                 open = false;
 
             }
             else
             {
-                leftAnim.Play("DoorOpen", 0, 0f);
-                //rightAnim.Play("DoorOpen", 0, 0f);
+                leftAnim.Play("DoorOpenLeft", 0, 0f);
+                rightAnim.Play("DoorOpenRight", 0, 0f);
                 open = true;
                 audioSource.clip = opensound;
                 audioSource.Play();
