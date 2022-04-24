@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 lookValue;
     public Transform playerCamera;
+    public bool canControl = true;
 
     //Sound variables
     private int pitchOg = 1;
@@ -130,30 +131,35 @@ public class PlayerController : MonoBehaviour
     // Input value from mouse 
     public void Look(InputAction.CallbackContext context)
     {
-        lookValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+        if (canControl)
+        {
+            lookValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
 
-        //local variables
-        float mouseX = lookValue.x * sensitivityX * Time.fixedDeltaTime;
-        float mouseY = lookValue.y * sensitivityY * Time.fixedDeltaTime;
+            //local variables
+            float mouseX = lookValue.x * sensitivityX * Time.fixedDeltaTime;
+            float mouseY = lookValue.y * sensitivityY * Time.fixedDeltaTime;
 
-        //Find current look rotation
-        Vector3 rot = transform.localRotation.eulerAngles;
-        float desiredX = rot.y + mouseX;
+            //Find current look rotation
+            Vector3 rot = transform.localRotation.eulerAngles;
+            float desiredX = rot.y + mouseX;
 
-        //Rotate, and also make sure we dont over- or under-rotate.
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            //Rotate, and also make sure we dont over- or under-rotate.
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        //Perform the rotations
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        transform.localRotation = Quaternion.Euler(0, desiredX, 0);
+            //Perform the rotations
+            playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, desiredX, 0);
+        }
     }
 
     // Input values from WASD
     public void Move(InputAction.CallbackContext context)
     {
-        moveValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
-        
+        if (canControl)
+        {
+            moveValue = new Vector2(context.ReadValue<Vector2>().x, context.ReadValue<Vector2>().y);
+        }
     }
 
     // Input value from Interact
@@ -180,7 +186,7 @@ public class PlayerController : MonoBehaviour
     // Input value from flashlight
     public void Flashlight(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && canControl)
         {
             flashlight.TurnOnOff();
         }
