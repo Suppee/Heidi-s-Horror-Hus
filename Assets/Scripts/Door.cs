@@ -10,6 +10,7 @@ public class Door : Interactable
     [SerializeField] private AudioClip locksound;
     [SerializeField] private AudioClip opensound;
     [SerializeField] private AudioClip closesound;
+    [SerializeField] private AudioClip unlocksound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string accesskey;
 
@@ -45,7 +46,8 @@ public class Door : Interactable
                 if (playerController.keyring[i].keycode == accesskey)
                 {
                     locked = false;
-                    // ADD UNLOCKING SOUND
+                    audioSource.clip = unlocksound;
+                    audioSource.Play();
                 }
                     
             }
