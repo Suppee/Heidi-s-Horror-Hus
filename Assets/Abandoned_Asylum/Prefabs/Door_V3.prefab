@@ -160,11 +160,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  locked: 1
+  locked: 0
+  canInteract: 1
   doorAnim: {fileID: 432906370}
   locksound: {fileID: 8300000, guid: 96f618e298159d64cb145de842feb821, type: 3}
   opensound: {fileID: 8300000, guid: 00f7a60b8334e774ab9fcaba62f4a142, type: 3}
   closesound: {fileID: 8300000, guid: 609a0a92c4458324598be1176da1ee0b, type: 3}
+  unlocksound: {fileID: 0}
   audioSource: {fileID: 3881554661820791660}
   accesskey: 
 --- !u!82 &3881554661820791660
@@ -276,6 +278,7 @@ GameObject:
   - component: {fileID: 23417493537140828}
   - component: {fileID: 64043530830437466}
   - component: {fileID: 432906370}
+  - component: {fileID: 718905152}
   m_Layer: 0
   m_Name: Door_3
   m_TagString: Interactable
@@ -382,3 +385,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &718905152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725113251181548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40b411b4dc51834fbbe1266406f7294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

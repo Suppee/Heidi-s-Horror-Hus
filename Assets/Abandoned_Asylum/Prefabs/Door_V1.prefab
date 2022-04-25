@@ -130,6 +130,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1210670792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3697366874615882409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40b411b4dc51834fbbe1266406f7294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3697366874615882413 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 30a37ce794ca1c94192e4d8721b12940, type: 3}
@@ -258,9 +270,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   locked: 1
+  canInteract: 0
   doorAnim: {fileID: 1972534583}
   locksound: {fileID: 8300000, guid: 96f618e298159d64cb145de842feb821, type: 3}
   opensound: {fileID: 8300000, guid: 00f7a60b8334e774ab9fcaba62f4a142, type: 3}
   closesound: {fileID: 8300000, guid: 609a0a92c4458324598be1176da1ee0b, type: 3}
+  unlocksound: {fileID: 0}
   audioSource: {fileID: 0}
   accesskey: Lala

@@ -176,8 +176,6 @@ public class PlayerController : MonoBehaviour
                     print("Interacting with " + hit.collider.gameObject);
                     hit.collider.gameObject.GetComponentInParent<Interactable>().playerController = this;
                     hit.collider.gameObject.GetComponentInParent<Interactable>().Interact();
-
-
                 }
             }
         }

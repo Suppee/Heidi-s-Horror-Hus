@@ -6,6 +6,7 @@ public class DoubleDoor : Interactable
 {
     public bool locked;
     bool open;
+    public bool canInteract;
     [SerializeField] private Animator leftAnim;
     [SerializeField] private Animator rightAnim;
     [SerializeField] private AudioClip locksound;
@@ -17,14 +18,15 @@ public class DoubleDoor : Interactable
     public void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
+        canInteract = true;
     }
     public override void Interact()
     {
         if (!locked)
         {
-            if (open)
+            if (open && canInteract)
             {
+                canInteract = false;
                 audioSource.clip = closesound;
                 audioSource.Play();
                 leftAnim.Play("DoorCloseLeft", 0, 0.0f);
@@ -32,8 +34,9 @@ public class DoubleDoor : Interactable
                 open = false;
 
             }
-            else
+            else if (canInteract)
             {
+                canInteract = false;
                 leftAnim.Play("DoorOpenLeft", 0, 0f);
                 rightAnim.Play("DoorOpenRight", 0, 0f);
                 open = true;
