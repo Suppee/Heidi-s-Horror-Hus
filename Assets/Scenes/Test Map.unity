@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  ItemCollected: {fileID: 8300000, guid: af50fb6852c500e48a71760ec9b946c7, type: 3}
+  ItemCollected: {fileID: 8300000, guid: 14ec0966d94cf9741a9cf7ebdbd35169, type: 3}
   audioSource: {fileID: 1516384136}
   keycode: Lala
 --- !u!82 &1516384136
@@ -1549,6 +1549,10 @@ PrefabInstance:
       propertyPath: noteLibrary
       value: 
       objectReference: {fileID: 350020972}
+    - target: {fileID: 5585865210950993450, guid: fb1b1c46113ec304caa6c52cfe6a2d0f, type: 3}
+      propertyPath: ItemCollected
+      value: 
+      objectReference: {fileID: 8300000, guid: d05a0bca5aff9c04ba74383f3f7adae2, type: 3}
     - target: {fileID: 5585865210950993450, guid: fb1b1c46113ec304caa6c52cfe6a2d0f, type: 3}
       propertyPath: playerController
       value: 

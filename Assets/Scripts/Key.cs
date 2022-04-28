@@ -12,8 +12,7 @@ public class Key : Interactable
         playerController.keyring.Add(this);
         if (GetComponent<AudioSource>().isPlaying == false)
         {
-            audioSource.clip = ItemCollected;
-            audioSource.Play();
+            AudioSource.PlayClipAtPoint(ItemCollected, transform.position);
         }
         gameObject.SetActive(false);
     }
