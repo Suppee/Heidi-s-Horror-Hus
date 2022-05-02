@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float gravity = -9.85f;
     public float moveSpeed;
-    Vector2 moveValue;
+    public Vector2 moveValue;
     [SerializeField] LayerMask groundMask;
     Vector3 verticalVelocity = Vector3.zero;
     [SerializeField] private AudioClip footstepsConcrete;
