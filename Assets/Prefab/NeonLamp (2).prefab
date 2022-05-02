@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8518112675318968354}
   - component: {fileID: 8525285085980232802}
   - component: {fileID: 8533582424607752798}
-  - component: {fileID: 122829807}
   - component: {fileID: 1552085817}
   m_Layer: 0
   m_Name: NeonLamp (2)
@@ -86,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &122829807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8520120281266016132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a52707b3b7c6fc4eab9f71bedfe1c63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeDelay: 0
-  lightMode: 0
 --- !u!82 &1552085817
 AudioSource:
   m_ObjectHideFlags: 0
@@ -240,9 +225,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
-  m_Range: 8.22
-  m_SpotAngle: 90.41
+  m_Intensity: 11.04
+  m_Range: 13
+  m_SpotAngle: 125
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -285,7 +270,7 @@ Light:
   m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 153.015, y: 154.54515, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 8409426, y: 2.5452665e-15, z: 0.010138829, w: -1794.2688}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
