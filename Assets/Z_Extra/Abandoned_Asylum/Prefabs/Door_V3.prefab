@@ -164,8 +164,8 @@ MonoBehaviour:
   canInteract: 1
   doorAnim: {fileID: 432906370}
   locksound: {fileID: 8300000, guid: 96f618e298159d64cb145de842feb821, type: 3}
-  opensound: {fileID: 8300000, guid: 00f7a60b8334e774ab9fcaba62f4a142, type: 3}
-  closesound: {fileID: 8300000, guid: 609a0a92c4458324598be1176da1ee0b, type: 3}
+  opensound: {fileID: 8300000, guid: 8db2f65c4ea98ea44a401c64822aec6b, type: 3}
+  closesound: {fileID: 8300000, guid: e1f3e1351f8672e42bb9db08ae996ca2, type: 3}
   unlocksound: {fileID: 0}
   audioSource: {fileID: 3881554661820791660}
   accesskey: 

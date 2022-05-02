@@ -160,11 +160,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   locked: 0
+  canInteract: 0
   leftAnim: {fileID: 4865379055504281263}
   rightAnim: {fileID: 7317543520416927491}
   locksound: {fileID: 8300000, guid: 96f618e298159d64cb145de842feb821, type: 3}
-  opensound: {fileID: 8300000, guid: 00f7a60b8334e774ab9fcaba62f4a142, type: 3}
-  closesound: {fileID: 8300000, guid: 609a0a92c4458324598be1176da1ee0b, type: 3}
+  opensound: {fileID: 8300000, guid: 8db2f65c4ea98ea44a401c64822aec6b, type: 3}
+  closesound: {fileID: 8300000, guid: e1f3e1351f8672e42bb9db08ae996ca2, type: 3}
   audioSource: {fileID: 884604288}
   accesskey: 
 --- !u!1 &1572667412200592
@@ -471,6 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1932657106288207197}
   - component: {fileID: 7317543520416927491}
+  - component: {fileID: 420878298}
   m_Layer: 0
   m_Name: PivotRight_1
   m_TagString: Untagged
@@ -514,6 +516,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &420878298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5369807083288466270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40b411b4dc51834fbbe1266406f7294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8079253760398015875
 GameObject:
   m_ObjectHideFlags: 0
