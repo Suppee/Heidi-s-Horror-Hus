@@ -11,12 +11,12 @@ public class LightFlicker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myLights = gameObject.GetComponentsInChildren<Light>();
+        //myLights = gameObject.GetComponentsInChildren<Light>();
 
-        foreach (Light light in myLights)
-        {
-            StartCoroutine(Flickering(light));
-        }
+        //foreach (Light light in myLights)
+        //{
+        //    StartCoroutine(Flickering(light));
+        //}
     }
 
     // Update is called once per frame
