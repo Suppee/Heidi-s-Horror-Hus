@@ -10,6 +10,7 @@ public class DoubleDoor : Interactable
     [SerializeField] private Animator leftAnim;
     [SerializeField] private Animator rightAnim;
     [SerializeField] private AudioClip locksound;
+    [SerializeField] private AudioClip unlocksound;
     [SerializeField] private AudioClip opensound;
     [SerializeField] private AudioClip closesound;
     [SerializeField] private AudioSource audioSource;
@@ -52,7 +53,8 @@ public class DoubleDoor : Interactable
                 if (playerController.keyring[i].keycode == accesskey)
                 {
                     locked = false;
-                    // ADD UNLOCKING SOUND
+                    audioSource.clip = unlocksound;
+                    audioSource.Play();
                 }
 
             }

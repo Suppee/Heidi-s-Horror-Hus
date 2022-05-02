@@ -164,6 +164,7 @@ MonoBehaviour:
   leftAnim: {fileID: 4865379055504281263}
   rightAnim: {fileID: 7317543520416927491}
   locksound: {fileID: 8300000, guid: 96f618e298159d64cb145de842feb821, type: 3}
+  unlocksound: {fileID: 8300000, guid: 5f1062211c783454f870858618782fa3, type: 3}
   opensound: {fileID: 8300000, guid: 8db2f65c4ea98ea44a401c64822aec6b, type: 3}
   closesound: {fileID: 8300000, guid: e1f3e1351f8672e42bb9db08ae996ca2, type: 3}
   audioSource: {fileID: 884604288}
