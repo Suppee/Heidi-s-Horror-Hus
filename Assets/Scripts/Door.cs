@@ -26,27 +26,11 @@ public class Door : Interactable
         {
             if (open && canInteract)
             {
-                canInteract = false;
-                audioSource.clip = closesound;
-                print("close1");
-                audioSource.Play();
-                print("close2");
-                doorAnim.Play("DoorClose", 0, 0.0f);
-                print("close3");
-                open = false;
-                print("close");
+                closedoor();
             }
             else if (canInteract)
             {
-                canInteract = false;
-                doorAnim.Play("DoorOpen", 0, 0f);
-                print("Open1");
-                open = true;
-                print("Open2");
-                audioSource.clip = opensound;
-                print("Open3");
-                audioSource.Play();
-                print("Open");
+                opendoor();
             }
         }
         else if (locked && GetComponent<AudioSource>().isPlaying == false)
@@ -66,5 +50,33 @@ public class Door : Interactable
                 audioSource.Play();
             }
         }
+    }
+
+    public void lockdoor()
+    {
+        locked = true;
+    }
+
+    public void unlockdoor()
+    {
+        locked = false;
+    }
+
+    public void opendoor()
+    {
+        canInteract = false;
+        doorAnim.Play("DoorOpen", 0, 0f);
+        open = true;
+        audioSource.clip = opensound;
+        audioSource.Play();
+    }
+
+    public void closedoor()
+    {
+        canInteract = false;
+        audioSource.clip = closesound;
+        audioSource.Play();
+        doorAnim.Play("DoorClose", 0, 0.0f);
+        open = false;
     }
 }
