@@ -28534,30 +28534,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6211542991732929311, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: m_SlopeLimit
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 6211542991732929311, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: m_StepOffset
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7288034479722477557, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: time
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7288034479722477557, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: charging
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7288034479722477557, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: maxCharge
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7288034479722477557, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: batteryCharge
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
 --- !u!1001 &1286370378
