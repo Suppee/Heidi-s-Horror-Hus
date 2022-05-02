@@ -556,6 +556,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlashlightLight: {fileID: 6211542991332387459}
   audioSource: {fileID: 7288034478527918660}
+  turnOn: 0
+  recharged: 1
+  batteryCharge: 20
+  charging: 0.5
+  maxCharge: 20
+  time: 5
 --- !u!1 &6211542991732929310
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +613,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.6
   m_SlopeLimit: 45
-  m_StepOffset: 0.7
+  m_StepOffset: 0.2
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.5, z: 0}
@@ -797,26 +803,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 544ed1ed-b80d-4017-afba-12878bc0149e
     m_ActionName: Player/Crouch[/Keyboard/ctrl]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6211542991088350242}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: Sprint
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9950b4ab-0e04-42d5-88e7-b467b0857e3b
-    m_ActionName: Player/Sprint[/Keyboard/leftShift]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 052f2c39-769e-4ef8-9523-d74ff0764061
-    m_ActionName: Flashlight/Lighting[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
