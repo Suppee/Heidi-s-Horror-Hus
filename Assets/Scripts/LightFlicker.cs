@@ -5,11 +5,17 @@ using UnityEngine;
 public class LightFlicker : MonoBehaviour
 {
     public float timeDelay;
+    Light[] myLights;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Flickering());
+        myLights = gameObject.GetComponentsInChildren<Light>();
+
+        foreach (Light light in myLights)
+        {
+            StartCoroutine(Flickering(light));
+        }
     }
 
     // Update is called once per frame
@@ -18,14 +24,14 @@ public class LightFlicker : MonoBehaviour
         
     }
 
-    IEnumerator Flickering()
+    IEnumerator Flickering(Light light)
     {
         while(true)
         {
-            this.gameObject.transform.GetChild(0).GetComponent<Light>().enabled = false;
+            light.enabled = false;
             timeDelay = Random.Range(0.01f, 2f);
             yield return new WaitForSeconds(timeDelay);
-            this.gameObject.transform.GetChild(0).GetComponent<Light>().enabled = true;
+            light.enabled = true;
             timeDelay = Random.Range(0.01f, 2f);
             yield return new WaitForSeconds(timeDelay);
         }

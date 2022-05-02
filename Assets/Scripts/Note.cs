@@ -33,6 +33,7 @@ public class Note : Interactable
             Cursor.visible = true;
 
             playerController.canControl = false;
+            playerController.moveValue = Vector2.zero;
         }
         else
         {
