@@ -139,7 +139,6 @@ GameObject:
   - component: {fileID: 4369005094392084}
   - component: {fileID: 33225400113327444}
   - component: {fileID: 23802013872350056}
-  - component: {fileID: 1383054108}
   m_Layer: 0
   m_Name: NeonLamp
   m_TagString: Untagged
@@ -214,19 +213,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1383054108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235368791355058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a52707b3b7c6fc4eab9f71bedfe1c63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeDelay: 0
 --- !u!1 &1965288969357466
 GameObject:
   m_ObjectHideFlags: 0
