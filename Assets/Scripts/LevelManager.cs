@@ -7,11 +7,21 @@ public class LevelManager : Interactable
 {
     public Animator transition;
     public float transitionTime = 1f;
+    public string sceneName;
 
     public override void Interact()
     {
+        
+        StartCoroutine(load());
+
+    }
+
+    IEnumerator load()
+    {
+        Scene sceneref = SceneManager.GetSceneByName(sceneName);
         transition.SetTrigger("Start");
-        new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        SceneManager.MoveGameObjectToScene(playerController.gameObject, sceneref);
     }
 }
