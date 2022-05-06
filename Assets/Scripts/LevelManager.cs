@@ -21,7 +21,7 @@ public class LevelManager : Interactable
         Scene sceneref = SceneManager.GetSceneByName(sceneName);
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene(sceneName);
         SceneManager.MoveGameObjectToScene(playerController.gameObject, sceneref);
     }
 }
