@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     //Crouch variables
     [SerializeField] GameObject Body;
-    private Vector3 crouchScale = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 crouchScale = new Vector3(0.75f, 0.5f, 0.75f);
     private Vector3 playerScale;
     bool CrouchActive = false;
 
