@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class trigger_Light : MonoBehaviour
+public class Trigger_Door : MonoBehaviour
 {
-    [SerializeField] LightControl lightControl;
-    [SerializeField] LightControl.LightState newState;
+    [SerializeField] Door door;
     [HideInInspector] public bool tjek = true;
 
     void OnTriggerEnter(Collider other)
     {
-        if (tjek)
+        if (tjek == true)
         {
-            lightControl.ChangeState(newState);
+            door.Interact();
             tjek = false;
         }
     }

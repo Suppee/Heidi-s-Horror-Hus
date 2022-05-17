@@ -5,23 +5,53 @@ using UnityEngine;
 public class LightControl : MonoBehaviour
 {
     public float timeDelay;
+    public bool lightsOn;
+    public LightState startState;
     public List<Light> lights;
     public List<Light> specialLights;
 
+    public enum LightState
+    {
+        turnedOn,
+        turnedOff,
+        flickering
+    }
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         lights.AddRange(gameObject.GetComponentsInChildren<Light>());
 
+        ChangeState(startState);
+    }
+
+    public void ChangeState(LightState lightState)
+    {
         foreach (Light light in lights)
         {
             if (!specialLights.Contains(light))
             {
-                StartCoroutine(Flickering(light));
+                if (lightState == LightState.turnedOn)
+                {
+                    StopAllCoroutines();
+                    light.enabled = true;
+                }
+
+                if (lightState == LightState.turnedOff)
+                {
+                    StopAllCoroutines();
+                    light.enabled = false;
+                }
+
+                if (lightState == LightState.flickering)
+                {
+                    StartCoroutine(Flickering(light));
+                }
             }
         }
     }
-    IEnumerator Flickering(Light light)
+
+    public IEnumerator Flickering(Light light)
     {
         while (true)
         {

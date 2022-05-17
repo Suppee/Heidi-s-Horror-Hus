@@ -36,6 +36,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip footstepsConcrete;
     [SerializeField] private AudioClip running;
     [SerializeField] private AudioClip sneaking;
+    Vector3 move;
+    Vector3 moveCrouch;
+    Vector3 moveSprint;
 
     //Crouch variables
     [SerializeField] GameObject Body;
@@ -72,10 +75,24 @@ public class PlayerController : MonoBehaviour
         }
 
         // Character movement
-        Vector3 move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
-        Vector3 moveCrouch = move / 2;
-        Vector3 moveSprint = move * 2;
+        move = (transform.right * moveValue.x + transform.forward * moveValue.y) * moveSpeed;
+        moveCrouch = move / 2;
+        moveSprint = move * 2;
 
+        //Checks if player is touching the ground, makes gravity
+        isGrounded = Physics.CheckSphere(transform.position, 0.5f, groundMask);
+
+        if (isGrounded)
+        {
+            verticalVelocity.y = 0;
+        }
+
+        verticalVelocity.y += gravity * Time.deltaTime;
+        controller.Move(verticalVelocity * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
         //Moves player based on stance
         if (CrouchActive && isMoving)
         {
@@ -89,17 +106,6 @@ public class PlayerController : MonoBehaviour
         {
             ControlMovement(move, soundTimer[2], footstepsConcrete, pitchMods[2].x, pitchMods[2].y, volMod[2]);
         }
-
-        //Checks if player is touching the ground, makes gravity
-        isGrounded = Physics.CheckSphere(transform.position, 0.5f, groundMask);
-
-        if (isGrounded)
-        {
-            verticalVelocity.y = 0;
-        }
-
-        verticalVelocity.y += gravity * Time.deltaTime;
-        controller.Move(verticalVelocity * Time.deltaTime);
     }
 
     private void ControlMovement(Vector3 moveMod, float interval, AudioClip audioClip, float pitchLo, float pitchHi, float volume)

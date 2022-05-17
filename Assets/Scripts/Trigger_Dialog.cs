@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class trigger_Light : MonoBehaviour
+public class Trigger_Dialog : MonoBehaviour
 {
-    [SerializeField] LightControl lightControl;
-    [SerializeField] LightControl.LightState newState;
+    [SerializeField] AudioSource player;
+    [SerializeField] AudioClip dialog;
     [HideInInspector] public bool tjek = true;
 
     void OnTriggerEnter(Collider other)
     {
-        if (tjek)
+        if (tjek == true)
         {
-            lightControl.ChangeState(newState);
+            player.clip = dialog;
+            player.Play();
             tjek = false;
         }
     }
