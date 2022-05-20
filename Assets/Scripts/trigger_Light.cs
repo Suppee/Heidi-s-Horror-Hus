@@ -12,7 +12,7 @@ public class trigger_Light : MonoBehaviour
     {
         if (tjek)
         {
-            lightControl.ChangeState(newState);
+            lightControl.ChangeState(newState.ToString());
             tjek = false;
         }
     }

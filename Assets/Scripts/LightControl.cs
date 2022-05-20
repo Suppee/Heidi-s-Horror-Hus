@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class LightControl : MonoBehaviour
 {
-    public float timeDelay;
-    public bool lightsOn;
-    public LightState startState;
-    public List<Light> lights;
-    public List<Light> specialLights;
+    private float timeDelay;
+    [SerializeField] private LightState startState;
+    [SerializeField] private List<Light> lights;
+    [SerializeField] private List<Light> specialLights;
 
     public enum LightState
     {
-        turnedOn,
-        turnedOff,
-        flickering
+        on,
+        off,
+        flicker
     }
 
     // Start is called before the first frame update
@@ -22,30 +21,32 @@ public class LightControl : MonoBehaviour
     {
         lights.AddRange(gameObject.GetComponentsInChildren<Light>());
 
-        ChangeState(startState);
+        ChangeState(startState.ToString());
     }
 
-    public void ChangeState(LightState lightState)
+    public void ChangeState(string lightState)
     {
         foreach (Light light in lights)
         {
             if (!specialLights.Contains(light))
             {
-                if (lightState == LightState.turnedOn)
+                switch (lightState)
                 {
-                    StopAllCoroutines();
-                    light.enabled = true;
-                }
-
-                if (lightState == LightState.turnedOff)
-                {
-                    StopAllCoroutines();
-                    light.enabled = false;
-                }
-
-                if (lightState == LightState.flickering)
-                {
-                    StartCoroutine(Flickering(light));
+                    case "on":
+                        StopAllCoroutines();
+                        light.enabled = true;
+                        break;
+                    case "off":
+                        StopAllCoroutines();
+                        light.enabled = false;
+                        break;
+                    case "flicker":
+                        StartCoroutine(Flickering(light));
+                        break;
+                    default:
+                        StopAllCoroutines();
+                        light.enabled = false;
+                        break;
                 }
             }
         }
