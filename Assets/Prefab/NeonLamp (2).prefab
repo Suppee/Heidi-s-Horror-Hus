@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8525285085980232802}
   - component: {fileID: 8533582424607752798}
   - component: {fileID: 1552085817}
+  - component: {fileID: 1739975150}
   m_Layer: 0
   m_Name: NeonLamp (2)
   m_TagString: Untagged
@@ -181,6 +182,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1739975150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520120281266016132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a6db511f92d104f8f7b8ebedf1ad72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startState: 2
+  lights: []
+  specialLights: []
 --- !u!1 &8520551722457344428
 GameObject:
   m_ObjectHideFlags: 0

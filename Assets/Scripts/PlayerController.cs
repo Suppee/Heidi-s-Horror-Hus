@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
     private float lastFootstep;
 
     //Movement variables
-    private bool isMoving;
-    private bool isGrounded;
-    private float gravity = -9.85f;
+    bool isMoving;
+    bool isGrounded;
+    float gravity = -9.85f;
     public float moveSpeed;
     public Vector2 moveValue;
     [SerializeField] LayerMask groundMask;

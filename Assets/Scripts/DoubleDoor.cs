@@ -15,11 +15,14 @@ public class DoubleDoor : Interactable
     [SerializeField] private AudioClip closesound;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string accesskey;
+    public bool startOpen;
 
     public void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         canInteract = true;
+        if (startOpen)
+            opendoor();
     }
     public override void Interact()
     {
@@ -63,10 +66,38 @@ public class DoubleDoor : Interactable
                 audioSource.clip = locksound;
                 audioSource.Play();
             }
-
         }
+    }
 
+    public void lockdoor()
+    {
+        locked = true;
+    }
 
+    public void unlockdoor()
+    {
+        locked = false;
+        audioSource.clip = unlocksound;
+        audioSource.Play();
+    }
 
+    public void opendoor()
+    {
+        canInteract = false;
+        leftAnim.Play("DoorOpenLeft", 0, 0f);
+        rightAnim.Play("DoorOpenRight", 0, 0f);
+        open = true;
+        audioSource.clip = opensound;
+        audioSource.Play();
+    }
+
+    public void closedoor()
+    {
+        canInteract = false;
+        audioSource.clip = closesound;
+        audioSource.Play();
+        leftAnim.Play("DoorCloseLeft", 0, 0.0f);
+        rightAnim.Play("DoorCloseRight", 0, 0.0f);
+        open = false;
     }
 }

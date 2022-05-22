@@ -8,6 +8,7 @@ public class Teleporter : Interactable
     public Animator transition;
     public float transitionTime;
     public Transform tpLocation;
+    public GameObject outsideLight;
 
     public override void Interact()
     {        
@@ -16,8 +17,10 @@ public class Teleporter : Interactable
 
     IEnumerator teleport()
     {
-        transition.SetTrigger("Start");
+        //transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
+        playerController.GetComponent<CharacterController>().enabled = false;
+        outsideLight.SetActive(true);
         playerController.gameObject.transform.position = tpLocation.position;
         playerController.gameObject.transform.rotation = tpLocation.rotation;
     }

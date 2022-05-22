@@ -312,7 +312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6211542991332387468
 Transform:
   m_ObjectHideFlags: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlashlightLight: {fileID: 6211542991332387459}
   audioSource: {fileID: 7288034478527918660}
-  turnOn: 0
+  turnOn: 1
   recharged: 1
   batteryCharge: 20
   charging: 0.5

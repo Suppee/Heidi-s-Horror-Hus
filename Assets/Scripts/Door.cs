@@ -60,6 +60,8 @@ public class Door : Interactable
     public void unlockdoor()
     {
         locked = false;
+        audioSource.clip = unlocksound;
+        audioSource.Play();
     }
 
     public void opendoor()
