@@ -13,15 +13,15 @@ public class Flashlight : MonoBehaviour
     public float maxCharge;
     public float time;
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (turnOn)
         {
-            batteryCharge -= Time.fixedDeltaTime;
+            batteryCharge -= Time.deltaTime;
         }
         else if (batteryCharge < maxCharge)
         {
-            batteryCharge += Time.fixedDeltaTime * charging;
+            batteryCharge += Time.deltaTime * charging;
         }
 
         if (batteryCharge <= 0)

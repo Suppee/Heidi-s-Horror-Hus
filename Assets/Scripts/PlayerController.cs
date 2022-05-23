@@ -212,10 +212,12 @@ public class PlayerController : MonoBehaviour
         if (CrouchActive)
         {
             transform.localScale = crouchScale;
+            flashlight.gameObject.transform.localScale = new Vector3(3, 2, 6);
         }
         else
         {
             transform.localScale = playerScale;
+            flashlight.gameObject.transform.localScale = new Vector3(3, 2, 3);
         }
     }
 
