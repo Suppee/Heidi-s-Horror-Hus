@@ -17,25 +17,30 @@ public class TriggerBox : MonoBehaviour
     [Header("Sequence Trigger Settings")]
     public List<UnityEvent> sequenceEvents;
     public List<float> sequenceTiming;
+    bool firstTime = true;
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
-        switch(triggerMode)
+        if (firstTime)
         {
-            case TriggerType.OneTime:
-                onetimeEvents.Invoke();
-                Destroy(this);
-                break;
+            firstTime = false;
+            switch (triggerMode)
+            {
+                case TriggerType.OneTime:
+                    onetimeEvents.Invoke();
+                    Destroy(this);
+                    break;
 
-            case TriggerType.OneTimeSequence:
-                StartCoroutine(Sequence());
-                break;
+                case TriggerType.OneTimeSequence:
+                    StartCoroutine(Sequence());
+                    break;
 
-            case TriggerType.RandomRepeating:
-                break;
+                case TriggerType.RandomRepeating:
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
