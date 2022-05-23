@@ -22,7 +22,7 @@ public class DoubleDoor : Interactable
         audioSource = GetComponent<AudioSource>();
         canInteract = true;
         if (startOpen)
-            opendoor();
+            OpenDoor();
     }
     public override void Interact()
     {
@@ -69,19 +69,19 @@ public class DoubleDoor : Interactable
         }
     }
 
-    public void lockdoor()
+    public void LockDoor()
     {
         locked = true;
     }
 
-    public void unlockdoor()
+    public void UnlockDoor()
     {
         locked = false;
         audioSource.clip = unlocksound;
         audioSource.Play();
     }
 
-    public void opendoor()
+    public void OpenDoor()
     {
         canInteract = false;
         leftAnim.Play("DoorOpenLeft", 0, 0f);
@@ -91,7 +91,7 @@ public class DoubleDoor : Interactable
         audioSource.Play();
     }
 
-    public void closedoor()
+    public void CloseDoor()
     {
         canInteract = false;
         audioSource.clip = closesound;

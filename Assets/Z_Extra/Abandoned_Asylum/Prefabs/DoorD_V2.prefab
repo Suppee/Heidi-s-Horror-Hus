@@ -561,9 +561,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0.06
   MinDistance: 1
-  MaxDistance: 12.5
+  MaxDistance: 17.632555
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 1
@@ -571,14 +571,14 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.7542381
+      value: 0.99583435
+      inSlope: -0.014182882
+      outSlope: -0.014182882
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.2937853
     - serializedVersion: 3
       time: 1
       value: 0
@@ -611,7 +611,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  locked: 0
+  locked: 1
   canInteract: 1
   leftAnim: {fileID: 1412868952}
   rightAnim: {fileID: 2130331255}
@@ -658,7 +658,8 @@ MonoBehaviour:
   opensound: {fileID: 8300000, guid: 00f7a60b8334e774ab9fcaba62f4a142, type: 3}
   closesound: {fileID: 8300000, guid: 609a0a92c4458324598be1176da1ee0b, type: 3}
   audioSource: {fileID: 602190700}
-  accesskey: Lala
+  accesskey: 1
+  startOpen: 1
 --- !u!1 &7189222044781936573
 GameObject:
   m_ObjectHideFlags: 0

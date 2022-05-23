@@ -71,9 +71,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 13.754471
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -81,8 +81,8 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 1
+      time: 0.8043003
+      value: 0.9945259
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -169,6 +169,7 @@ MonoBehaviour:
   closesound: {fileID: 8300000, guid: e1f3e1351f8672e42bb9db08ae996ca2, type: 3}
   audioSource: {fileID: 884604288}
   accesskey: 
+  startOpen: 0
 --- !u!1 &1572667412200592
 GameObject:
   m_ObjectHideFlags: 0
