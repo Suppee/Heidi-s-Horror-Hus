@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8268881612214515757}
   - component: {fileID: 1045656270675594346}
+  - component: {fileID: 1286160915}
   m_Layer: 0
   m_Name: Dialog Player
   m_TagString: Untagged
@@ -128,6 +129,58 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1286160915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680754908416842410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29cd3f232648cb48bdefbb2199fe36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs:
+  - {fileID: 8300000, guid: 6ed8b90ce4c73e04585a7d60a4f7baee, type: 3}
+  - {fileID: 8300000, guid: 542ffd273501398419e2daab8c2200c6, type: 3}
+  - {fileID: 8300000, guid: b40116977b91e2948b8861c43029d850, type: 3}
+  - {fileID: 8300000, guid: 46f255047934bad46a8f13db7d87bc11, type: 3}
+  - {fileID: 8300000, guid: 2ff10b0bf32e1194b9b6c10ecce08630, type: 3}
+  - {fileID: 8300000, guid: a59755d7b3a6be347b5744db1687f251, type: 3}
+  - {fileID: 8300000, guid: a2bf1d3c416bddf48abc83b4074678a9, type: 3}
+  - {fileID: 8300000, guid: 09b61f899f95fd245af9ef764d2c199d, type: 3}
+  - {fileID: 8300000, guid: 7b3112da77bc1ad4d9bb5c8bd1aa6577, type: 3}
+  - {fileID: 8300000, guid: 81815338c477b5740ba46ba0992127c5, type: 3}
+  - {fileID: 8300000, guid: 2067a153b21266a42b8ffa8917128185, type: 3}
+  - {fileID: 8300000, guid: c8e715997cab5264dba290424c3c9601, type: 3}
+  - {fileID: 8300000, guid: aeb77bff0590e584eaf719ebc796ec13, type: 3}
+  - {fileID: 8300000, guid: 100779f57446a714ab1451c28582fdc5, type: 3}
+  - {fileID: 8300000, guid: a1043f1f11555b8468a28861b3e90e27, type: 3}
+  - {fileID: 8300000, guid: 7eb927b8a358c2f43bf683892eafb588, type: 3}
+  - {fileID: 8300000, guid: 3511d1f9c09f5b146a8eeb06703f6865, type: 3}
+  - {fileID: 8300000, guid: 9b76dc4243ad22746af8b14dc5c307f6, type: 3}
+  - {fileID: 8300000, guid: b2c8e42220e447a468f69f81abead0e6, type: 3}
+  - {fileID: 8300000, guid: 78ee3d8648bf18c4abc111715676bb91, type: 3}
+  - {fileID: 8300000, guid: 802a5dc30dce34645b272fb5f42b5465, type: 3}
+  - {fileID: 8300000, guid: 85d0b1a053ce18246976f0f0892c54be, type: 3}
+  - {fileID: 8300000, guid: 22e372136169b52438e5e230f183a41d, type: 3}
+  - {fileID: 8300000, guid: 31943a5542502a94b9e5c1cb9661dcc0, type: 3}
+  - {fileID: 8300000, guid: ace3a9ddd2adf3e4d8e71906018fa86e, type: 3}
+  - {fileID: 8300000, guid: 06e9d33dea185c743a9b6c92ee20c300, type: 3}
+  - {fileID: 8300000, guid: a20a7a27028283b40b5420e09cc5694b, type: 3}
+  - {fileID: 8300000, guid: b73ee9c3240bfb5498cebbc7b979be38, type: 3}
+  - {fileID: 8300000, guid: 87a4bbcd9e8384a489767d0056818440, type: 3}
+  - {fileID: 8300000, guid: 0a6c2bcd28745594a99cb953e4c395c5, type: 3}
+  - {fileID: 8300000, guid: a77e6d6bcca4eda4989181b6b682701b, type: 3}
+  - {fileID: 8300000, guid: 3615fb098c1a8ff45ad7945748f22d74, type: 3}
+  - {fileID: 8300000, guid: 8ae0f3051cf5d554ebc16b49976133f8, type: 3}
+  - {fileID: 8300000, guid: d3228c31027ea094e8db16e474f38926, type: 3}
+  - {fileID: 8300000, guid: b2e9cc98ef8927744b8995b817752de2, type: 3}
+  - {fileID: 8300000, guid: 477d9533b398d1141a8e91303df916ed, type: 3}
+  - {fileID: 8300000, guid: be9c033752bf6294a9bb53702ced1a16, type: 3}
+  - {fileID: 8300000, guid: f02d7ddcb6719a9428392c1492b15fab, type: 3}
+  audioPlayer: {fileID: 1045656270675594346}
 --- !u!1 &6211542990483769746
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,8 +740,8 @@ MonoBehaviour:
   turnOn: 1
   recharged: 1
   batteryCharge: 20
-  charging: 0.5
-  maxCharge: 20
+  charging: 20
+  maxCharge: 100
   time: 5
 --- !u!1 &6211542991732929310
 GameObject:
@@ -778,7 +831,7 @@ MonoBehaviour:
   - 1
   - 0.4
   - 0.75
-  moveSpeed: 7
+  moveSpeed: 5
   moveValue: {x: 0, y: 0}
   groundMask:
     serializedVersion: 2
@@ -800,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 34479f0bf21bf9441ae42d88639c8a92, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 5551c861d5a03f44ba4063b145148199, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:

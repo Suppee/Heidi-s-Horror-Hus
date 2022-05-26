@@ -49374,14 +49374,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6211542991088350242, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: moveSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6211542991088350243, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: m_Actions
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: 5551c861d5a03f44ba4063b145148199, type: 3}
     - target: {fileID: 6211542991732929304, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -49429,14 +49421,6 @@ PrefabInstance:
     - target: {fileID: 6211542991732929310, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7288034479722477557, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: charging
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7288034479722477557, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
-      propertyPath: maxCharge
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27babc97bd157da478c37510eb78de1e, type: 3}
