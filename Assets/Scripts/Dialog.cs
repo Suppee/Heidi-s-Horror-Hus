@@ -6,8 +6,15 @@ using UnityEngine;
 public class Dialog : MonoBehaviour
 {
     [SerializeField] AudioClip[] dialogs;
+    [SerializeField] AudioClip startDialog;
     [SerializeField] AudioSource audioPlayer;
-    
+
+    private void Awake()
+    {
+        audioPlayer.clip = startDialog;
+        audioPlayer.PlayDelayed(2);
+    }
+
     public void PlayDialog(string clipName)
     {
         AudioClip foundClip = null;
@@ -17,7 +24,7 @@ public class Dialog : MonoBehaviour
             {
                 if (foundClip != null)
                 {
-                    throw new ArgumentException(clipName + " exists more than once in array \"dialogs\"");
+                    throw new ArgumentException("\"" + clipName + "\"" + " exists more than once in array \"dialogs\"");
                 }
 
                 foundClip = dialog;

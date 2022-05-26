@@ -18,7 +18,7 @@ public class TriggerBox : MonoBehaviour
     public List<UnityEvent> sequenceEvents;
     public List<float> sequenceTiming;
     bool firstTime = true;
-    // Start is called before the first frame update
+
     private void OnTriggerEnter(Collider other)
     {
         if (firstTime)
