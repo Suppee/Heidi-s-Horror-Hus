@@ -6,12 +6,25 @@ public class Flashlight : MonoBehaviour
 {
     [SerializeField] GameObject FlashlightLight;
     [SerializeField] AudioSource audioSource;
-    public bool turnOn = false;
-    public bool recharged = true;
-    public float batteryCharge;
-    public float charging;
-    public float maxCharge;
-    public float time;
+    [SerializeField] float chargeMultiplyer;
+    [SerializeField] float maxCharge;
+    [SerializeField] float rechargeTime;
+    [SerializeField] float slowFlickerStart;
+    [SerializeField] float fastFlickerStart;
+
+    [HideInInspector] public float batteryCharge;
+
+    bool turnOn = false;
+    bool recharged = true;
+    bool slowRunning;
+    bool fastRunning;
+
+    private void Awake()
+    {
+        batteryCharge = maxCharge;
+        slowRunning = false;
+        fastRunning = false;
+    }
 
     public void Update()
     {
@@ -21,14 +34,32 @@ public class Flashlight : MonoBehaviour
         }
         else if (batteryCharge < maxCharge)
         {
-            batteryCharge += Time.deltaTime * charging;
+            batteryCharge += Time.deltaTime * chargeMultiplyer;
         }
 
-        if (batteryCharge <= 0)
+        if (batteryCharge < slowFlickerStart && batteryCharge > fastFlickerStart && FlashlightLight.activeSelf && !slowRunning)
         {
+            slowRunning = true;
+            StartCoroutine(SlowFlicker());
+        }
+
+        if (batteryCharge < fastFlickerStart && FlashlightLight.activeSelf && !fastRunning)
+        {
+            slowRunning = false;
+            fastRunning = true;
+
+            StopCoroutine(SlowFlicker());
+            StartCoroutine(FastFlicker());
+        }
+
+        if (batteryCharge <= 0 && FlashlightLight.activeSelf)
+        {
+            fastRunning = false;
             turnOn = false;
-            FlashlightLight.SetActive(false);
             recharged = false;
+
+            FlashlightLight.SetActive(false);
+            StopAllCoroutines();
             StartCoroutine(Recharge());
         }
     }
@@ -51,10 +82,49 @@ public class Flashlight : MonoBehaviour
         }
     }
 
+    IEnumerator SlowFlicker()
+    {
+        while (turnOn)
+        {
+            FlashlightLight.SetActive(false);
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+
+            if (!turnOn)
+            {
+                slowRunning = false;
+                break;
+            }
+
+            FlashlightLight.SetActive(true);
+            yield return new WaitForSeconds(Random.Range(1f, 4f));
+        }
+
+        slowRunning = false;
+    }
+
+    IEnumerator FastFlicker()
+    {
+        while (turnOn)
+        {
+            FlashlightLight.SetActive(false);
+            yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+
+            if (!turnOn)
+            {
+                fastRunning = false;
+                break;
+            }
+
+            FlashlightLight.SetActive(true);
+            yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+        }
+
+        fastRunning = false;
+    }
+
     IEnumerator Recharge()
     {
-        yield return new WaitForSeconds(time);
-        turnOn = false;
+        yield return new WaitForSeconds(rechargeTime);
         recharged = true;
     }
 }

@@ -5,29 +5,25 @@ using UnityEngine.UI;
 
 public class Note : Interactable
 {
-    public GameObject noteImage;
+    [SerializeField] AudioClip ItemCollected;
+    [SerializeField] Sprite noteImage;
+    [SerializeField] GameObject noteUI;
+    SpriteRenderer noteDisplay;
+    AudioSource audioSource;
 
-    [SerializeField] private AudioClip ItemCollected;
-    [SerializeField] private AudioSource audioSource;
-
-    public GameObject noteLibrary;
-    private SpriteRenderer noteReference;
-    public string ID;
-
-    private void Start()
+    private void Awake()
     {
-        noteImage.SetActive(false);
-        noteReference = noteLibrary.transform.Find(ID).gameObject.GetComponent<SpriteRenderer>();
-        if (noteReference != null)
-            noteImage.GetComponent<Image>().sprite = noteReference.sprite;
+        noteDisplay = noteUI.GetComponent<SpriteRenderer>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public override void Interact()
     {
-        if (noteImage.activeSelf == false)
+        if (noteUI.activeSelf == false)
         {
-            noteImage.SetActive(true);
-            GetComponent<AudioSource>().PlayOneShot(ItemCollected);
+            noteUI.SetActive(true);
+            noteDisplay.sprite = noteImage;
+            audioSource.PlayOneShot(ItemCollected);
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -37,7 +33,7 @@ public class Note : Interactable
         }
         else
         {
-            noteImage.SetActive(false);
+            noteUI.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

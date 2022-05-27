@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Flashlight flashlight;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] GameObject noteUI;
 
     //Camera control variables
     public float xRotation;
@@ -55,6 +56,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (noteUI != null)
+            noteUI.SetActive(false);
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         playerScale = transform.localScale;
