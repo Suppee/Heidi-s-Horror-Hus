@@ -1,9 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Door : Interactable
 {
+    public enum TriggerType { OneTime, OneTimeSequence, RandomRepeating };
+
+    [Header("Trigger Mode")]
+    public TriggerType triggerMode;
+
+    [Header("One Time Trigger Settings")]
+    public UnityEvent onetimeEvents;
+
+    [Header("Sequence Trigger Settings")]
+    public List<UnityEvent> sequenceEvents;
+    public List<float> sequenceTiming;
+    bool firstTime = true;
+
     public bool locked;
     bool open;
     public bool canInteract;
@@ -26,11 +40,11 @@ public class Door : Interactable
         {
             if (open && canInteract)
             {
-                closedoor();
+                CloseDoor();
             }
             else if (canInteract)
             {
-                opendoor();
+                OpenDoor();
             }
         }
         else if (locked && GetComponent<AudioSource>().isPlaying == false)
@@ -39,9 +53,7 @@ public class Door : Interactable
             {
                 if (playerController.keyring[i].keycode == accesskey)
                 {
-                    locked = false;
-                    audioSource.clip = unlocksound;
-                    audioSource.Play();
+                    UnlockDoor();
                 }    
             }
             if(locked)
@@ -50,6 +62,8 @@ public class Door : Interactable
                 audioSource.Play();
             }
         }
+
+        EventCheck();
     }
 
     public void lockdoor()
@@ -57,14 +71,14 @@ public class Door : Interactable
         locked = true;
     }
 
-    public void unlockdoor()
+    public void UnlockDoor()
     {
         locked = false;
         audioSource.clip = unlocksound;
         audioSource.Play();
     }
 
-    public void opendoor()
+    public void OpenDoor()
     {
         canInteract = false;
         doorAnim.Play("DoorOpen", 0, 0f);
@@ -73,12 +87,47 @@ public class Door : Interactable
         audioSource.Play();
     }
 
-    public void closedoor()
+    public void CloseDoor()
     {
         canInteract = false;
         audioSource.clip = closesound;
         audioSource.Play();
         doorAnim.Play("DoorClose", 0, 0.0f);
         open = false;
+    }
+
+    void EventCheck()
+    {
+        if (firstTime)
+        {
+            firstTime = false;
+            switch (triggerMode)
+            {
+                case TriggerType.OneTime:
+                    onetimeEvents.Invoke();
+                    Destroy(this);
+                    break;
+
+                case TriggerType.OneTimeSequence:
+                    StartCoroutine(Sequence());
+                    break;
+
+                case TriggerType.RandomRepeating:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    IEnumerator Sequence()
+    {
+        for (int i = 0; i < sequenceEvents.Count; i++)
+        {
+            yield return new WaitForSeconds(sequenceTiming[i]);
+            sequenceEvents[i].Invoke();
+        }
+        Destroy(this);
     }
 }

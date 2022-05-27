@@ -1,9 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DoubleDoor : Interactable
 {
+    public enum TriggerType { OneTime, OneTimeSequence, RandomRepeating };
+
+    [Header("Trigger Mode")]
+    public TriggerType triggerMode;
+
+    [Header("One Time Trigger Settings")]
+    public UnityEvent onetimeEvents;
+
+    [Header("Sequence Trigger Settings")]
+    public List<UnityEvent> sequenceEvents;
+    public List<float> sequenceTiming;
+    bool firstTime = true;
+
     public bool locked;
     bool open;
     public bool canInteract;
@@ -30,22 +44,12 @@ public class DoubleDoor : Interactable
         {
             if (open && canInteract)
             {
-                canInteract = false;
-                audioSource.clip = closesound;
-                audioSource.Play();
-                leftAnim.Play("DoorCloseLeft", 0, 0.0f);
-                rightAnim.Play("DoorCloseRight", 0, 0.0f);
-                open = false;
+                CloseDoor();
 
             }
             else if (canInteract)
             {
-                canInteract = false;
-                leftAnim.Play("DoorOpenLeft", 0, 0f);
-                rightAnim.Play("DoorOpenRight", 0, 0f);
-                open = true;
-                audioSource.clip = opensound;
-                audioSource.Play();
+                OpenDoor();
             }
 
         }
@@ -55,18 +59,18 @@ public class DoubleDoor : Interactable
             {
                 if (playerController.keyring[i].keycode == accesskey)
                 {
-                    locked = false;
-                    audioSource.clip = unlocksound;
-                    audioSource.Play();
+                    UnlockDoor();
                 }
-
             }
+
             if (locked)
             {
                 audioSource.clip = locksound;
                 audioSource.Play();
             }
         }
+
+        EventCheck();
     }
 
     public void LockDoor()
@@ -99,5 +103,40 @@ public class DoubleDoor : Interactable
         leftAnim.Play("DoorCloseLeft", 0, 0.0f);
         rightAnim.Play("DoorCloseRight", 0, 0.0f);
         open = false;
+    }
+
+    void EventCheck()
+    {
+        if (firstTime)
+        {
+            firstTime = false;
+            switch (triggerMode)
+            {
+                case TriggerType.OneTime:
+                    onetimeEvents.Invoke();
+                    Destroy(this);
+                    break;
+
+                case TriggerType.OneTimeSequence:
+                    StartCoroutine(Sequence());
+                    break;
+
+                case TriggerType.RandomRepeating:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    IEnumerator Sequence()
+    {
+        for (int i = 0; i < sequenceEvents.Count; i++)
+        {
+            yield return new WaitForSeconds(sequenceTiming[i]);
+            sequenceEvents[i].Invoke();
+        }
+        Destroy(this);
     }
 }

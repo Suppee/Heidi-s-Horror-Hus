@@ -15,23 +15,9 @@ public class Dialog : MonoBehaviour
         audioPlayer.PlayDelayed(2);
     }
 
-    public void PlayDialog(string clipName)
+    public void PlayDialog(AudioClip dialog)
     {
-        AudioClip foundClip = null;
-        foreach (AudioClip dialog in dialogs)
-        {
-            if (dialog.name == clipName)
-            {
-                if (foundClip != null)
-                {
-                    throw new ArgumentException("\"" + clipName + "\"" + " exists more than once in array \"dialogs\"");
-                }
-
-                foundClip = dialog;
-            }
-        }
-
-        audioPlayer.clip = foundClip;
+        audioPlayer.clip = dialog;
         audioPlayer.Play();
     }
 }
