@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Flashlight flashlight;
     [SerializeField] AudioSource audioSource;
+
+    //UI and Fade To black variables
     [SerializeField] GameObject noteUI;
+    [SerializeField] Image blackSquare;
+    [SerializeField] float fadeTime;
 
     //Camera control variables
     public float xRotation;
@@ -56,6 +61,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        gameObject.GetComponent<CharacterController>().enabled = false;
+        StartCoroutine(WakeUp());
+
         if (noteUI != null)
             noteUI.SetActive(false);
 
@@ -237,5 +245,19 @@ public class PlayerController : MonoBehaviour
         {
             SprintActive = false;
         }
+    }
+
+    IEnumerator WakeUp()
+    {
+        float fadeVal;
+
+        while (blackSquare.color.a > 0)
+        {
+            fadeVal = blackSquare.color.a - (fadeTime * Time.deltaTime);
+            blackSquare.color = new Color(blackSquare.color.r, blackSquare.color.g, blackSquare.color.b, fadeVal);
+            yield return null;
+        }
+
+        gameObject.GetComponent<CharacterController>().enabled = true;
     }
 }

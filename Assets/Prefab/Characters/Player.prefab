@@ -720,6 +720,9 @@ MonoBehaviour:
   controller: {fileID: 6211542991732929311}
   flashlight: {fileID: 7288034479722477557}
   audioSource: {fileID: 7288034480153761376}
+  noteUI: {fileID: 0}
+  blackSquare: {fileID: 0}
+  fadeTime: 0.1
   xRotation: 0
   sensitivityX: 6
   sensitivityY: 6
