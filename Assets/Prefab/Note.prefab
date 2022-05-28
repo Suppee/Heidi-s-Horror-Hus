@@ -303,8 +303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
-  noteImage: {fileID: 0}
   ItemCollected: {fileID: 8300000, guid: d05a0bca5aff9c04ba74383f3f7adae2, type: 3}
-  audioSource: {fileID: 5585865210950993451}
-  noteLibrary: {fileID: 0}
-  ID: dyr_font
+  noteImage: {fileID: 0}
+  noteUI: {fileID: 0}
