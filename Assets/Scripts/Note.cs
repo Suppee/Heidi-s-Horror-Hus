@@ -8,12 +8,12 @@ public class Note : Interactable
     [SerializeField] AudioClip ItemCollected;
     [SerializeField] Sprite noteImage;
     [SerializeField] GameObject noteUI;
-    SpriteRenderer noteDisplay;
+    Image noteDisplay;
     AudioSource audioSource;
 
     private void Awake()
     {
-        noteDisplay = noteUI.GetComponent<SpriteRenderer>();
+        noteDisplay = noteUI.GetComponent<Image>();
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
@@ -21,12 +21,14 @@ public class Note : Interactable
     {
         if (noteUI.activeSelf == false)
         {
+            Button noteButton = noteUI.GetComponent<Button>();
+            noteButton.onClick.RemoveAllListeners();
+            noteButton.onClick.AddListener(Interact);
+            print(noteUI.GetComponent<Button>().onClick.GetPersistentEventCount());
+
             noteUI.SetActive(true);
             noteDisplay.sprite = noteImage;
             audioSource.PlayOneShot(ItemCollected);
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
 
             playerController.canControl = false;
             playerController.moveValue = Vector2.zero;
@@ -34,9 +36,6 @@ public class Note : Interactable
         else
         {
             noteUI.SetActive(false);
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
 
             playerController.canControl = true;
         }

@@ -87,7 +87,7 @@ public class Flashlight : MonoBehaviour
         while (turnOn)
         {
             FlashlightLight.SetActive(false);
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
 
             if (!turnOn)
             {
@@ -107,7 +107,7 @@ public class Flashlight : MonoBehaviour
         while (turnOn)
         {
             FlashlightLight.SetActive(false);
-            yield return new WaitForSeconds(Random.Range(0.5f, 1f));
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.6f));
 
             if (!turnOn)
             {
@@ -116,7 +116,7 @@ public class Flashlight : MonoBehaviour
             }
 
             FlashlightLight.SetActive(true);
-            yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+            yield return new WaitForSeconds(Random.Range(0.4f, 1.2f));
         }
 
         fastRunning = false;

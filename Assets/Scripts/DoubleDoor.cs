@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class DoubleDoor : Interactable
 {
-    public enum TriggerType { OneTime, OneTimeSequence, RandomRepeating };
+    public enum TriggerType { OneTime, OneTimeSequence };
 
     [Header("Trigger Mode")]
     public TriggerType triggerMode;
@@ -114,14 +114,10 @@ public class DoubleDoor : Interactable
             {
                 case TriggerType.OneTime:
                     onetimeEvents.Invoke();
-                    Destroy(this);
                     break;
 
                 case TriggerType.OneTimeSequence:
                     StartCoroutine(Sequence());
-                    break;
-
-                case TriggerType.RandomRepeating:
                     break;
 
                 default:
@@ -137,6 +133,5 @@ public class DoubleDoor : Interactable
             yield return new WaitForSeconds(sequenceTiming[i]);
             sequenceEvents[i].Invoke();
         }
-        Destroy(this);
     }
 }

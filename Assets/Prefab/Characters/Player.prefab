@@ -182,6 +182,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f02d7ddcb6719a9428392c1492b15fab, type: 3}
   startDialog: {fileID: 8300000, guid: 87a4bbcd9e8384a489767d0056818440, type: 3}
   audioPlayer: {fileID: 1045656270675594346}
+  debugText: {fileID: 0}
 --- !u!1 &6211542990483769746
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6211542991479916240
 Transform:
   m_ObjectHideFlags: 0
@@ -643,11 +644,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlashlightLight: {fileID: 6211542991332387459}
   audioSource: {fileID: 7288034478527918660}
-  chargeMultiplyer: 2
-  maxCharge: 40
+  chargeMultiplyer: 3
+  maxCharge: 100
   rechargeTime: 10
-  slowFlickerStart: 30
-  fastFlickerStart: 10
+  slowFlickerStart: 60
+  fastFlickerStart: 30
   batteryCharge: 20
 --- !u!1 &6211542991732929310
 GameObject:
@@ -719,15 +720,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 6211542991732929311}
   flashlight: {fileID: 7288034479722477557}
-  audioSource: {fileID: 7288034480153761376}
   noteUI: {fileID: 0}
   blackSquare: {fileID: 0}
-  fadeTime: 0.1
+  fadeTime: 0.2
   xRotation: 0
   sensitivityX: 6
   sensitivityY: 6
   playerCamera: {fileID: 6211542990483769757}
   canControl: 1
+  audioSource: {fileID: 7288034480153761376}
   pitchMods:
   - {x: 0.75, y: 0.9}
   - {x: 1.3, y: 1.5}

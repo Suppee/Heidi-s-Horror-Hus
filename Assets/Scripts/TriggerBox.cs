@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class TriggerBox : MonoBehaviour
 {
 
-    public enum TriggerType { OneTime, OneTimeSequence, RandomRepeating};
+    public enum TriggerType { OneTime, OneTimeSequence };
 
     [Header("Trigger Mode")]
     public TriggerType triggerMode;
@@ -28,14 +28,10 @@ public class TriggerBox : MonoBehaviour
             {
                 case TriggerType.OneTime:
                     onetimeEvents.Invoke();
-                    Destroy(this);
                     break;
 
                 case TriggerType.OneTimeSequence:
                     StartCoroutine(Sequence());
-                    break;
-
-                case TriggerType.RandomRepeating:
                     break;
 
                 default:
@@ -51,6 +47,5 @@ public class TriggerBox : MonoBehaviour
             yield return new WaitForSeconds(sequenceTiming[i]);
             sequenceEvents[i].Invoke();
         }
-        Destroy(this);
     }
 }

@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class Key : Interactable
+public class Chair : Interactable
 {
+    [SerializeField] Image blackSquare;
+
     public enum TriggerType { OneTime, OneTimeSequence };
 
     [Header("Trigger Mode")]
@@ -18,28 +22,7 @@ public class Key : Interactable
     public List<float> sequenceTiming;
     bool firstTime = true;
 
-    [SerializeField] private AudioClip ItemCollected;
-    [SerializeField] private AudioSource audioSource;
-    public string keycode;
-
     public override void Interact()
-    {
-        playerController.keyring.Add(this);
-
-        if (gameObject.GetComponent<AudioSource>() != null && gameObject.GetComponent<AudioSource>().isPlaying == false)
-            AudioSource.PlayClipAtPoint(ItemCollected, transform.position);
-
-        EventCheck();
-
-        gameObject.GetComponent<BoxCollider>().enabled = false;
-
-        if (gameObject.GetComponent<MeshCollider>() != null)
-            gameObject.GetComponent<MeshCollider>().enabled = false;
-
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-    }
-
-    void EventCheck()
     {
         if (firstTime)
         {
@@ -48,7 +31,6 @@ public class Key : Interactable
             {
                 case TriggerType.OneTime:
                     onetimeEvents.Invoke();
-                    gameObject.SetActive(false);
                     break;
 
                 case TriggerType.OneTimeSequence:
@@ -68,8 +50,17 @@ public class Key : Interactable
             yield return new WaitForSeconds(sequenceTiming[i]);
             sequenceEvents[i].Invoke();
         }
-
-        gameObject.SetActive(false);
     }
 
+    public void SleepNow()
+    {
+        StartCoroutine(GoToSleep());
+    }
+
+    IEnumerator GoToSleep()
+    {
+        blackSquare.color = new Color(blackSquare.color.r, blackSquare.color.g, blackSquare.color.b, 1);
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene("Menu");
+    }
 }

@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Flashlight flashlight;
-    [SerializeField] AudioSource audioSource;
 
     //UI and Fade To black variables
     [SerializeField] GameObject noteUI;
@@ -26,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     //Sound variables
     private int pitchOg = 1;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] private Vector2[] pitchMods;
     [SerializeField] private float[] volMod;
     [SerializeField] private float[] soundTimer;
@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        gameObject.GetComponent<CharacterController>().enabled = false;
+        gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        canControl = false;
         StartCoroutine(WakeUp());
 
         if (noteUI != null)
@@ -70,7 +71,6 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         playerScale = transform.localScale;
-        //audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -91,16 +91,8 @@ public class PlayerController : MonoBehaviour
         moveCrouch = move / 2;
         moveSprint = move * 2;
 
-        //Checks if player is touching the ground, makes gravity
-        isGrounded = Physics.CheckSphere(transform.position, 0.5f, groundMask);
-
-        if (isGrounded)
-        {
-            verticalVelocity.y = 0;
-        }
-
+        
         verticalVelocity.y += gravity * Time.deltaTime;
-        controller.Move(verticalVelocity * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -122,27 +114,30 @@ public class PlayerController : MonoBehaviour
 
     private void ControlMovement(Vector3 moveMod, float interval, AudioClip audioClip, float pitchLo, float pitchHi, float volume)
     {
-        //moves player
-        controller.Move(moveMod * Time.deltaTime);
-
-        //plays footstep sounds i last footstep is longer ago than allowed limit
-        if (Time.fixedTime - interval >= lastFootstep)
+        if (controller.enabled)
         {
-            audioSource.Stop();
+            //moves player
+            controller.Move((moveMod + verticalVelocity) * Time.deltaTime);
 
-            //replaces audio clip with correct clip
-            if (audioSource.clip != audioClip)
+            //plays footstep sounds i last footstep is longer ago than allowed limit
+            if (Time.fixedTime - interval >= lastFootstep)
             {
-                audioSource.clip = audioClip;
+                audioSource.Stop();
+
+                //replaces audio clip with correct clip
+                if (audioSource.clip != audioClip)
+                {
+                    audioSource.clip = audioClip;
+                }
+
+                //Sets pitch and volume
+                audioSource.pitch = Random.Range(pitchOg * pitchLo, pitchOg * pitchHi);
+                audioSource.volume = volume;
+
+                //plays footstep and records current time
+                audioSource.Play();
+                lastFootstep = Time.fixedTime;
             }
-
-            //Sets pitch and volume
-            audioSource.pitch = Random.Range(pitchOg * pitchLo, pitchOg * pitchHi);
-            audioSource.volume = volume;
-
-            //plays footstep and records current time
-            audioSource.Play();
-            lastFootstep = Time.fixedTime;
         }
     }
 
@@ -192,8 +187,14 @@ public class PlayerController : MonoBehaviour
                 if (hit.transform.CompareTag("Interactable"))
                 {
                     print("Interacting with " + hit.collider.gameObject);
-                    hit.collider.gameObject.GetComponentInParent<Interactable>().playerController = this;
-                    hit.collider.gameObject.GetComponentInParent<Interactable>().Interact();
+                    Interactable interactable = hit.collider.gameObject.GetComponentInParent<Interactable>();
+
+                    if (interactable.playerController != this)
+                    {
+                        interactable.playerController = this;
+                    }
+
+                    interactable.Interact();
                 }
             }
         }
@@ -249,6 +250,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator WakeUp()
     {
+        blackSquare.gameObject.SetActive(true);
         float fadeVal;
 
         while (blackSquare.color.a > 0)
@@ -258,6 +260,14 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        gameObject.GetComponent<CharacterController>().enabled = true;
+        canControl = true;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.layer == groundMask)
+        {
+            verticalVelocity.y = 0;
+        }
     }
 }

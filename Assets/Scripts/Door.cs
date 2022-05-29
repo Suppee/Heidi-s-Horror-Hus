@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Door : Interactable
 {
-    public enum TriggerType { OneTime, OneTimeSequence, RandomRepeating };
+    public enum TriggerType { OneTime, OneTimeSequence };
 
     [Header("Trigger Mode")]
     public TriggerType triggerMode;
@@ -16,7 +16,7 @@ public class Door : Interactable
     [Header("Sequence Trigger Settings")]
     public List<UnityEvent> sequenceEvents;
     public List<float> sequenceTiming;
-    bool firstTime = true;
+    [SerializeField] bool firstTime = true;
 
     public bool locked;
     bool open;
@@ -105,14 +105,10 @@ public class Door : Interactable
             {
                 case TriggerType.OneTime:
                     onetimeEvents.Invoke();
-                    Destroy(this);
                     break;
 
                 case TriggerType.OneTimeSequence:
                     StartCoroutine(Sequence());
-                    break;
-
-                case TriggerType.RandomRepeating:
                     break;
 
                 default:
@@ -128,6 +124,10 @@ public class Door : Interactable
             yield return new WaitForSeconds(sequenceTiming[i]);
             sequenceEvents[i].Invoke();
         }
-        Destroy(this);
+    }
+
+    public void ResetFirstTime(bool newFirstTime)
+    {
+        firstTime = newFirstTime;
     }
 }
