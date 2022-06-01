@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour
     // Input value from flashlight
     public void Flashlight(InputAction.CallbackContext context)
     {
-        if (context.performed && canControl)
+        if (context.performed && canControl && flashlight.gameObject.activeSelf == true)
         {
             flashlight.TurnOnOff();
         }
